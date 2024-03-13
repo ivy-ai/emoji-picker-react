@@ -5,7 +5,7 @@ import { ClassNames } from '../../DomUtils/classNames';
 import {
   commonInteractionStyles,
   commonStyles,
-  stylesheet
+  stylesheet,
 } from '../../Stylesheet/stylesheet';
 import { Button } from '../atoms/Button';
 
@@ -32,7 +32,7 @@ export function ClickableEmojiButton({
   children,
   className,
   noBackground = false,
-  style
+  style,
 }: ClickableEmojiButtonProps) {
   return (
     <Button
@@ -41,7 +41,7 @@ export function ClickableEmojiButton({
         hidden && commonStyles.hidden,
         hiddenOnSearch && commonInteractionStyles.hiddenOnSearch,
         {
-          [ClassNames.visible]: !hidden && !hiddenOnSearch
+          [ClassNames.visible]: !hidden && !hiddenOnSearch,
         },
         !!(hasVariations && showVariations) && styles.hasVariations,
         noBackground && styles.noBackground,
@@ -79,22 +79,22 @@ const styles = stylesheet.create({
     overflow: 'hidden',
     transition: 'background-color 0.2s',
     ':hover': {
-      backgroundColor: 'var(--epr-emoji-hover-color)'
+      backgroundColor: 'var(--epr-emoji-hover-color)',
     },
     ':focus': {
-      backgroundColor: 'var(--epr-focus-bg-color)'
-    }
+      backgroundColor: 'var(--epr-focus-bg-color)',
+    },
   },
   noBackground: {
     background: 'none',
     ':hover': {
       backgroundColor: 'transparent',
-      background: 'none'
+      background: 'none',
     },
     ':focus': {
       backgroundColor: 'transparent',
-      background: 'none'
-    }
+      background: 'none',
+    },
   },
   hasVariations: {
     '.': ClassNames.emojiHasVariations,
@@ -110,10 +110,11 @@ const styles = stylesheet.create({
       borderRight: '4px solid transparent',
       transform: 'rotate(135deg)',
       borderBottom: '4px solid var(--epr-emoji-variation-indicator-color)',
-      zIndex: 'var(--epr-emoji-variations-indictator-z-index)'
+      zIndex: 'var(--epr-emoji-variations-indictator-z-index)',
     },
     ':hover:after': {
-      borderBottom: '4px solid var(--epr-emoji-variation-indicator-color-hover)'
-    }
-  }
+      borderBottom:
+        '4px solid var(--epr-emoji-variation-indicator-color-hover)',
+    },
+  },
 });
