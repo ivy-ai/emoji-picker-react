@@ -5,12 +5,12 @@ import { ClassNames } from '../../DomUtils/classNames';
 import {
   commonInteractionStyles,
   commonStyles,
-  stylesheet
+  stylesheet,
 } from '../../Stylesheet/stylesheet';
 import {
   CategoryConfig,
   categoryFromCategoryConfig,
-  categoryNameFromCategoryConfig
+  categoryNameFromCategoryConfig,
 } from '../../config/categoryConfig';
 
 type Props = Readonly<{
@@ -24,7 +24,7 @@ export function EmojiCategory({
   categoryConfig,
   children,
   hidden,
-  hiddenOnSearch
+  hiddenOnSearch,
 }: Props) {
   const category = categoryFromCategoryConfig(categoryConfig);
   const categoryName = categoryNameFromCategoryConfig(categoryConfig);
@@ -49,8 +49,8 @@ const styles = stylesheet.create({
   category: {
     '.': ClassNames.category,
     ':not(:has(.epr-visible))': {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   categoryContent: {
     '.': ClassNames.categoryContent,
@@ -59,12 +59,11 @@ const styles = stylesheet.create({
     gridTemplateColumns: 'repeat(auto-fill, var(--epr-emoji-fullsize))',
     justifyContent: 'space-between',
     margin: 'var(--epr-category-padding)',
-    position: 'relative'
+    position: 'relative',
   },
   label: {
     '.': ClassNames.label,
     alignItems: 'center',
-    // @ts-expect-error - backdropFilter is a valid CSS property
     backdropFilter: 'blur(3px)',
     backgroundColor: 'var(--epr-category-label-bg-color)',
     color: 'var(--epr-category-label-text-color)',
@@ -78,6 +77,6 @@ const styles = stylesheet.create({
     textTransform: 'capitalize',
     top: '0',
     width: '100%',
-    zIndex: 'var(--epr-category-label-z-index)'
-  }
+    zIndex: 'var(--epr-category-label-z-index)',
+  },
 });
