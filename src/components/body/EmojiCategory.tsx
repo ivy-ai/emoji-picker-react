@@ -5,12 +5,12 @@ import { ClassNames } from '../../DomUtils/classNames';
 import {
   commonInteractionStyles,
   commonStyles,
-  stylesheet
+  stylesheet,
 } from '../../Stylesheet/stylesheet';
 import {
   CategoryConfig,
   categoryFromCategoryConfig,
-  categoryNameFromCategoryConfig
+  categoryNameFromCategoryConfig,
 } from '../../config/categoryConfig';
 
 type Props = Readonly<{
@@ -26,7 +26,7 @@ export function EmojiCategory({
   children,
   hidden,
   hiddenOnSearch,
-  height
+  height,
 }: Props) {
   const category = categoryFromCategoryConfig(categoryConfig);
   const categoryName = categoryNameFromCategoryConfig(categoryConfig);
@@ -52,7 +52,7 @@ export function EmojiCategory({
 const styles = stylesheet.create({
   category: {
     '.': ClassNames.category,
-    position: 'relative'
+    position: 'relative',
   },
   categoryContent: {
     '.': ClassNames.categoryContent,
@@ -61,7 +61,7 @@ const styles = stylesheet.create({
     gridTemplateColumns: 'repeat(auto-fill, var(--epr-emoji-fullsize))',
     justifyContent: 'space-between',
     margin: 'var(--epr-category-padding)',
-    position: 'relative'
+    position: 'relative',
   },
   label: {
     '.': ClassNames.label,
@@ -80,6 +80,6 @@ const styles = stylesheet.create({
     textTransform: 'capitalize',
     top: '0',
     width: '100%',
-    zIndex: 'var(--epr-category-label-z-index)'
-  }
+    zIndex: 'var(--epr-category-label-z-index)',
+  },
 });
