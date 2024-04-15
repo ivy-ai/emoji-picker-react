@@ -1,4 +1,4 @@
-import { SkinTones } from '../types/exposedTypes';
+import { SkinTones, SkinTonesNames } from '../types/exposedTypes';
 
 const skinToneVariations = [
   SkinTones.NEUTRAL,
@@ -11,7 +11,7 @@ const skinToneVariations = [
 
 export const skinTonesNamed = Object.entries(SkinTones).reduce(
   (acc, [key, value]) => {
-    acc[value] = key;
+    acc[value] = SkinTonesNames[key as keyof typeof SkinTonesNames];
     return acc;
   },
   {} as Record<string, string>

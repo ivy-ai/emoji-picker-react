@@ -3,9 +3,10 @@ import { cdnUrl } from '../config/cdnUrls';
 import { CustomEmoji } from '../config/customEmojiConfig';
 import emojis from '../data/emojis';
 import skinToneVariations, {
-  skinTonesMapped
+  skinTonesMapped,
+  skinTonesNamed,
 } from '../data/skinToneVariations';
-import { EmojiStyle, SkinTones } from '../types/exposedTypes';
+import { EmojiStyle, SkinTones, SkinTonesNames } from '../types/exposedTypes';
 
 import { DataEmoji, DataEmojis, EmojiProperties, WithName } from './DataTypes';
 import { indexEmoji } from './alphaNumericEmojiIndex';
@@ -142,4 +143,20 @@ export function activeVariationFromUnified(unified: string): SkinTones | null {
   return skinToneVariations.includes(suspectedSkinTone)
     ? suspectedSkinTone
     : null;
+}
+
+export function activeVariationNameFromUnified(
+  unified: string,
+  withNeutral?: boolean
+): string | null {
+  const skinToneVariation = activeVariationFromUnified(unified);
+  if (skinToneVariation) return skinTonesNamed[skinToneVariation as string];
+
+  if (withNeutral) {
+    const emoji = emojiByUnified(unified);
+    if (!emoji) return null;
+    if (emojiHasVariations(emoji)) return SkinTonesNames.NEUTRAL;
+  }
+
+  return null;
 }

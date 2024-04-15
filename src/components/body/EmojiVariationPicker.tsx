@@ -64,7 +64,9 @@ export function EmojiVariationPicker() {
       return;
     }
 
-    focusFirstVisibleEmoji(VariationPickerRef.current);
+    const variationElements = (VariationPickerRef.current as HTMLDivElement)
+      .childNodes as NodeListOf<HTMLButtonElement>;
+    variationElements[0].focus();
   }, [VariationPickerRef, visible, AnchoredEmojiRef]);
 
   let top, pointerStyle;

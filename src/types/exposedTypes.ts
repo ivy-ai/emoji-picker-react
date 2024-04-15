@@ -34,7 +34,16 @@ export enum SkinTones {
   MEDIUM_LIGHT = '1f3fc',
   MEDIUM = '1f3fd',
   MEDIUM_DARK = '1f3fe',
-  DARK = '1f3ff'
+  DARK = '1f3ff',
+}
+
+export enum SkinTonesNames {
+  NEUTRAL = 'neutral',
+  LIGHT = 'light',
+  MEDIUM_LIGHT = 'medium light',
+  MEDIUM = 'medium',
+  MEDIUM_DARK = 'medium dark',
+  DARK = 'dark',
 }
 
 export enum Categories {
