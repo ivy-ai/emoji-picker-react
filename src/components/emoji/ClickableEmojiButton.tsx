@@ -8,6 +8,7 @@ import {
   stylesheet,
 } from '../../Stylesheet/stylesheet';
 import { Button } from '../atoms/Button';
+import { activeVariationNameFromUnified } from '../../dataUtils/emojiSelectors';
 
 type ClickableEmojiButtonProps = Readonly<{
   hidden?: boolean;
@@ -16,7 +17,7 @@ type ClickableEmojiButtonProps = Readonly<{
   emojiNames: string[];
   children: React.ReactNode;
   hasVariations: boolean;
-  unified?: string;
+  unified: string;
   noBackground?: boolean;
   className?: string;
   style?: React.CSSProperties;
@@ -34,6 +35,15 @@ export function ClickableEmojiButton({
   noBackground = false,
   style,
 }: ClickableEmojiButtonProps) {
+  let ariaLabel = emojiNames[0].match('flag-')
+    ? emojiNames[1] ?? emojiNames[0]
+    : emojiNames[0];
+  const skinToneName = activeVariationNameFromUnified(
+    unified,
+    !showVariations && hasVariations
+  );
+  if (skinToneName) ariaLabel = `${ariaLabel} ${skinToneName} skin tone`;
+
   return (
     <Button
       className={cx(
