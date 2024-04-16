@@ -32,6 +32,14 @@ export declare enum SkinTones {
     MEDIUM_DARK = "1f3fe",
     DARK = "1f3ff"
 }
+export declare enum SkinTonesNames {
+    NEUTRAL = "neutral",
+    LIGHT = "light",
+    MEDIUM_LIGHT = "medium light",
+    MEDIUM = "medium",
+    MEDIUM_DARK = "medium dark",
+    DARK = "dark"
+}
 export declare enum Categories {
     SUGGESTED = "suggested",
     CUSTOM = "custom",

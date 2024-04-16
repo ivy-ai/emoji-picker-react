@@ -3,7 +3,6 @@ import * as React from 'react';
 import { useEffect } from 'react';
 
 import { ClassNames } from '../../DomUtils/classNames';
-import { focusFirstVisibleEmoji } from '../../DomUtils/keyboardNavigation';
 import {
   buttonFromTarget,
   elementHeight,

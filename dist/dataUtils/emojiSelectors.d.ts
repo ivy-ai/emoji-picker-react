@@ -16,3 +16,4 @@ export declare function emojiByUnified(unified?: string): DataEmoji | undefined;
 export declare const allEmojis: DataEmojis;
 export declare function setCustomEmojis(customEmojis: CustomEmoji[]): void;
 export declare function activeVariationFromUnified(unified: string): SkinTones | null;
+export declare function activeVariationNameFromUnified(unified: string, withNeutral?: boolean): string | null;
