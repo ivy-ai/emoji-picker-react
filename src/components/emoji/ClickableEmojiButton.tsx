@@ -35,14 +35,19 @@ export function ClickableEmojiButton({
   noBackground = false,
   style,
 }: ClickableEmojiButtonProps) {
-  let ariaLabel = emojiNames[0].match('flag-')
-    ? emojiNames[1] ?? emojiNames[0]
-    : emojiNames[0];
-  const skinToneName = activeVariationNameFromUnified(
-    unified,
-    !showVariations && hasVariations
-  );
-  if (skinToneName) ariaLabel = `${ariaLabel} ${skinToneName} skin tone`;
+  function getAriaLabel() {
+    let ariaLabel = emojiNames.some((name) => name.match('flag-'))
+      ? emojiNames[emojiNames.length - 1]
+      : emojiNames[0];
+
+    const skinToneName = activeVariationNameFromUnified(
+      unified,
+      !showVariations && hasVariations
+    );
+    if (skinToneName) ariaLabel = `${ariaLabel} ${skinToneName} skin tone`;
+
+    return ariaLabel;
+  }
 
   return (
     <Button
@@ -58,7 +63,7 @@ export function ClickableEmojiButton({
         className
       )}
       data-unified={unified}
-      aria-label={getAriaLabel(emojiNames)}
+      aria-label={getAriaLabel()}
       data-full-name={emojiNames}
       style={style}
     >
