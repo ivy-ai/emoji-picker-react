@@ -1,74 +1,60 @@
-import React__default, { memo, createElement, useState, useEffect, useContext, createContext, useRef, useMemo, createRef, useCallback, Fragment, Component } from 'react';
+import React__default, { memo, createElement, useState, useRef, useMemo, useEffect, createContext, useContext, createRef, useCallback, Fragment, Suspense, Component } from 'react';
 import { createSheet, cx } from 'flairup';
 
-function _extends() {
-  _extends = Object.assign ? Object.assign.bind() : function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends.apply(this, arguments);
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
 }
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  _setPrototypeOf(subClass, superClass);
-}
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-  return _setPrototypeOf(o, p);
-}
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-  return target;
-}
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-  return arr2;
-}
-function _createForOfIteratorHelperLoose(o, allowArrayLike) {
-  var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
-  if (it) return (it = it.call(o)).next.bind(it);
-  if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
-    if (it) o = it;
-    var i = 0;
+function _createForOfIteratorHelperLoose(r, e) {
+  var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (t) return (t = t.call(r)).next.bind(t);
+  if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) {
+    t && (r = t);
+    var o = 0;
     return function () {
-      if (i >= o.length) return {
-        done: true
-      };
-      return {
-        done: false,
-        value: o[i++]
+      return o >= r.length ? {
+        done: !0
+      } : {
+        done: !1,
+        value: r[o++]
       };
     };
   }
   throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+function _inheritsLoose(t, o) {
+  t.prototype = Object.create(o.prototype), t.prototype.constructor = t, _setPrototypeOf(t, o);
+}
+function _objectWithoutPropertiesLoose(r, e) {
+  if (null == r) return {};
+  var t = {};
+  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
+    if (-1 !== e.indexOf(n)) continue;
+    t[n] = r[n];
+  }
+  return t;
+}
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+    return t.__proto__ = e, t;
+  }, _setPrototypeOf(t, e);
+}
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
 }
 
 var ClassNames;
@@ -137,7 +123,7 @@ var commonInteractionStyles = /*#__PURE__*/stylesheet.create({
         '.': ClassNames.hiddenOnSearch
       }, hidden)
     },
-    ':has(input(:placeholder-shown))': {
+    ':has(input:placeholder-shown)': {
       visibleOnSearchOnly: hidden
     }
   },
@@ -159,7 +145,6 @@ var commonInteractionStyles = /*#__PURE__*/stylesheet.create({
         opacity: '1',
         backgroundPositionY: 'var(--epr-category-navigation-button-size)'
       },
-      // @ts-ignore
       '&.epr-active': {
         opacity: '1',
         backgroundPositionY: 'var(--epr-category-navigation-button-size)'
@@ -190,6 +175,86 @@ function compareConfig(prev, next) {
 
 var DEFAULT_REACTIONS = ['1f44d', '2764-fe0f', '1f603', '1f622', '1f64f', '1f44e', '1f621' // 😡
 ];
+
+var alphaNumericEmojiIndex = {};
+setTimeout(function () {
+  allEmojis.reduce(function (searchIndex, emoji) {
+    indexEmoji(emoji);
+    return searchIndex;
+  }, alphaNumericEmojiIndex);
+});
+function indexEmoji(emoji) {
+  var joinedNameString = emojiNames(emoji).flat().join('').toLowerCase().replace(/[^a-zA-Z\d]/g, '').split('');
+  joinedNameString.forEach(function (_char) {
+    var _alphaNumericEmojiInd;
+    alphaNumericEmojiIndex[_char] = (_alphaNumericEmojiInd = alphaNumericEmojiIndex[_char]) != null ? _alphaNumericEmojiInd : {};
+    alphaNumericEmojiIndex[_char][emojiUnified(emoji)] = emoji;
+  });
+}
+
+function useDebouncedState(initialValue, delay) {
+  if (delay === void 0) {
+    delay = 0;
+  }
+  var _useState = useState(initialValue),
+    state = _useState[0],
+    setState = _useState[1];
+  var timer = useRef(null);
+  function debouncedSetState(value) {
+    return new Promise(function (resolve) {
+      var _window;
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
+      timer.current = (_window = window) == null ? void 0 : _window.setTimeout(function () {
+        setState(value);
+        resolve(value);
+      }, delay);
+    });
+  }
+  return [state, debouncedSetState];
+}
+
+function useIsUnicodeHidden() {
+  var unicodeToHide = useUnicodeToHide();
+  return function (emojiUnified) {
+    return unicodeToHide.has(emojiUnified);
+  };
+}
+
+function useDisallowedEmojis() {
+  var DisallowedEmojisRef = useRef({});
+  var emojiVersionConfig = useEmojiVersionConfig();
+  return useMemo(function () {
+    var emojiVersion = parseFloat("" + emojiVersionConfig);
+    if (!emojiVersionConfig || Number.isNaN(emojiVersion)) {
+      return DisallowedEmojisRef.current;
+    }
+    return allEmojis.reduce(function (disallowedEmojis, emoji) {
+      if (addedInNewerVersion(emoji, emojiVersion)) {
+        disallowedEmojis[emojiUnified(emoji)] = true;
+      }
+      return disallowedEmojis;
+    }, DisallowedEmojisRef.current);
+  }, [emojiVersionConfig]);
+}
+function useIsEmojiDisallowed() {
+  var disallowedEmojis = useDisallowedEmojis();
+  var isUnicodeHidden = useIsUnicodeHidden();
+  return function isEmojiDisallowed(emoji) {
+    var unified = unifiedWithoutSkinTone(emojiUnified(emoji));
+    return Boolean(disallowedEmojis[unified] || isUnicodeHidden(unified));
+  };
+}
+function addedInNewerVersion(emoji, supportedLevel) {
+  return addedIn(emoji) > supportedLevel;
+}
+
+function useMarkInitialLoad(dispatch) {
+  useEffect(function () {
+    dispatch(true);
+  }, [dispatch]);
+}
 
 var SuggestionMode;
 (function (SuggestionMode) {
@@ -246,6 +311,138 @@ var SkinTonePickerLocation;
   SkinTonePickerLocation["SEARCH"] = "SEARCH";
   SkinTonePickerLocation["PREVIEW"] = "PREVIEW";
 })(SkinTonePickerLocation || (SkinTonePickerLocation = {}));
+
+function PickerContextProvider(_ref) {
+  var children = _ref.children;
+  var disallowedEmojis = useDisallowedEmojis();
+  var defaultSkinTone = useDefaultSkinToneConfig();
+  var reactionsDefaultOpen = useReactionsOpenConfig();
+  // Initialize the filter with the inititial dictionary
+  var filterRef = useRef(alphaNumericEmojiIndex);
+  var disallowClickRef = useRef(false);
+  var disallowMouseRef = useRef(false);
+  var disallowedEmojisRef = useRef(disallowedEmojis);
+  var suggestedUpdateState = useDebouncedState(Date.now(), 200);
+  var searchTerm = useDebouncedState('', 100);
+  var skinToneFanOpenState = useState(false);
+  var activeSkinTone = useState(defaultSkinTone);
+  var activeCategoryState = useState(null);
+  var emojisThatFailedToLoadState = useState(new Set());
+  var emojiVariationPickerState = useState(null);
+  var reactionsModeState = useState(reactionsDefaultOpen);
+  var _useState = useState(false),
+    isPastInitialLoad = _useState[0],
+    setIsPastInitialLoad = _useState[1];
+  var visibleCategoriesState = useState([]);
+  useMarkInitialLoad(setIsPastInitialLoad);
+  return createElement(PickerContext.Provider, {
+    value: {
+      activeCategoryState: activeCategoryState,
+      activeSkinTone: activeSkinTone,
+      disallowClickRef: disallowClickRef,
+      disallowMouseRef: disallowMouseRef,
+      disallowedEmojisRef: disallowedEmojisRef,
+      emojiVariationPickerState: emojiVariationPickerState,
+      emojisThatFailedToLoadState: emojisThatFailedToLoadState,
+      filterRef: filterRef,
+      isPastInitialLoad: isPastInitialLoad,
+      searchTerm: searchTerm,
+      skinToneFanOpenState: skinToneFanOpenState,
+      suggestedUpdateState: suggestedUpdateState,
+      reactionsModeState: reactionsModeState,
+      visibleCategoriesState: visibleCategoriesState
+    }
+  }, children);
+}
+var PickerContext = /*#__PURE__*/createContext({
+  activeCategoryState: [null, function () {}],
+  activeSkinTone: [SkinTones.NEUTRAL, function () {}],
+  disallowClickRef: {
+    current: false
+  },
+  disallowMouseRef: {
+    current: false
+  },
+  disallowedEmojisRef: {
+    current: {}
+  },
+  emojiVariationPickerState: [null, function () {}],
+  emojisThatFailedToLoadState: [/*#__PURE__*/new Set(), function () {}],
+  filterRef: {
+    current: {}
+  },
+  isPastInitialLoad: true,
+  searchTerm: ['', function () {
+    return new Promise(function () {
+      return undefined;
+    });
+  }],
+  skinToneFanOpenState: [false, function () {}],
+  suggestedUpdateState: [/*#__PURE__*/Date.now(), function () {}],
+  reactionsModeState: [false, function () {}],
+  visibleCategoriesState: [[], function () {
+    return [];
+  }]
+});
+function useFilterRef() {
+  var _React$useContext = useContext(PickerContext),
+    filterRef = _React$useContext.filterRef;
+  return filterRef;
+}
+function useDisallowClickRef() {
+  var _React$useContext2 = useContext(PickerContext),
+    disallowClickRef = _React$useContext2.disallowClickRef;
+  return disallowClickRef;
+}
+function useDisallowMouseRef() {
+  var _React$useContext3 = useContext(PickerContext),
+    disallowMouseRef = _React$useContext3.disallowMouseRef;
+  return disallowMouseRef;
+}
+function useReactionsModeState() {
+  var _React$useContext4 = useContext(PickerContext),
+    reactionsModeState = _React$useContext4.reactionsModeState;
+  return reactionsModeState;
+}
+function useSearchTermState() {
+  var _React$useContext5 = useContext(PickerContext),
+    searchTerm = _React$useContext5.searchTerm;
+  return searchTerm;
+}
+function useActiveSkinToneState() {
+  var _React$useContext6 = useContext(PickerContext),
+    activeSkinTone = _React$useContext6.activeSkinTone;
+  return activeSkinTone;
+}
+function useEmojisThatFailedToLoadState() {
+  var _React$useContext7 = useContext(PickerContext),
+    emojisThatFailedToLoadState = _React$useContext7.emojisThatFailedToLoadState;
+  return emojisThatFailedToLoadState;
+}
+function useEmojiVariationPickerState() {
+  var _React$useContext9 = useContext(PickerContext),
+    emojiVariationPickerState = _React$useContext9.emojiVariationPickerState;
+  return emojiVariationPickerState;
+}
+function useSkinToneFanOpenState() {
+  var _React$useContext0 = useContext(PickerContext),
+    skinToneFanOpenState = _React$useContext0.skinToneFanOpenState;
+  return skinToneFanOpenState;
+}
+function useVisibleCategoriesState() {
+  var _React$useContext10 = useContext(PickerContext),
+    visibleCategoriesState = _React$useContext10.visibleCategoriesState;
+  return visibleCategoriesState;
+}
+function useUpdateSuggested() {
+  var _React$useContext11 = useContext(PickerContext),
+    suggestedUpdateState = _React$useContext11.suggestedUpdateState;
+  var suggestedUpdated = suggestedUpdateState[0],
+    setsuggestedUpdate = suggestedUpdateState[1];
+  return [suggestedUpdated, function updateSuggested() {
+    setsuggestedUpdate(Date.now());
+  }];
+}
 
 var _configByCategory;
 var categoriesOrdered = [Categories.SUGGESTED, Categories.CUSTOM, Categories.SMILEYS_PEOPLE, Categories.ANIMALS_NATURE, Categories.FOOD_DRINK, Categories.TRAVEL_PLACES, Categories.ACTIVITIES, Categories.OBJECTS, Categories.SYMBOLS, Categories.FLAGS];
@@ -723,6 +920,27 @@ var smileys_people = [
 		],
 		u: "1f925",
 		a: "3.0"
+	},
+	{
+		n: [
+			"shaking face"
+		],
+		u: "1fae8",
+		a: "15.0"
+	},
+	{
+		n: [
+			"head shaking horizontally"
+		],
+		u: "1f642-200d-2194-fe0f",
+		a: "15.1"
+	},
+	{
+		n: [
+			"head shaking vertically"
+		],
+		u: "1f642-200d-2195-fe0f",
+		a: "15.1"
 	},
 	{
 		n: [
@@ -1320,14 +1538,6 @@ var smileys_people = [
 	},
 	{
 		n: [
-			"kiss",
-			"kiss mark"
-		],
-		u: "1f48b",
-		a: "0.6"
-	},
-	{
-		n: [
 			"love letter"
 		],
 		u: "1f48c",
@@ -1432,6 +1642,13 @@ var smileys_people = [
 	},
 	{
 		n: [
+			"pink heart"
+		],
+		u: "1fa77",
+		a: "15.0"
+	},
+	{
+		n: [
 			"orange heart"
 		],
 		u: "1f9e1",
@@ -1460,6 +1677,13 @@ var smileys_people = [
 	},
 	{
 		n: [
+			"light blue heart"
+		],
+		u: "1fa75",
+		a: "15.0"
+	},
+	{
+		n: [
 			"purple heart"
 		],
 		u: "1f49c",
@@ -1481,10 +1705,25 @@ var smileys_people = [
 	},
 	{
 		n: [
+			"grey heart"
+		],
+		u: "1fa76",
+		a: "15.0"
+	},
+	{
+		n: [
 			"white heart"
 		],
 		u: "1f90d",
 		a: "12.0"
+	},
+	{
+		n: [
+			"kiss",
+			"kiss mark"
+		],
+		u: "1f48b",
+		a: "0.6"
 	},
 	{
 		n: [
@@ -1541,13 +1780,6 @@ var smileys_people = [
 		],
 		u: "1f573-fe0f",
 		a: "0.7"
-	},
-	{
-		n: [
-			"bomb"
-		],
-		u: "1f4a3",
-		a: "0.6"
 	},
 	{
 		n: [
@@ -1722,6 +1954,34 @@ var smileys_people = [
 			"1faf4-1f3ff"
 		],
 		a: "14.0"
+	},
+	{
+		n: [
+			"leftwards pushing hand"
+		],
+		u: "1faf7",
+		v: [
+			"1faf7-1f3fb",
+			"1faf7-1f3fc",
+			"1faf7-1f3fd",
+			"1faf7-1f3fe",
+			"1faf7-1f3ff"
+		],
+		a: "15.0"
+	},
+	{
+		n: [
+			"rightwards pushing hand"
+		],
+		u: "1faf8",
+		v: [
+			"1faf8-1f3fb",
+			"1faf8-1f3fc",
+			"1faf8-1f3fd",
+			"1faf8-1f3fe",
+			"1faf8-1f3ff"
+		],
+		a: "15.0"
 	},
 	{
 		n: [
@@ -4980,6 +5240,48 @@ var smileys_people = [
 	},
 	{
 		n: [
+			"person walking facing right"
+		],
+		u: "1f6b6-200d-27a1-fe0f",
+		v: [
+			"1f6b6-1f3fb-200d-27a1-fe0f",
+			"1f6b6-1f3fc-200d-27a1-fe0f",
+			"1f6b6-1f3fd-200d-27a1-fe0f",
+			"1f6b6-1f3fe-200d-27a1-fe0f",
+			"1f6b6-1f3ff-200d-27a1-fe0f"
+		],
+		a: "15.1"
+	},
+	{
+		n: [
+			"woman walking facing right"
+		],
+		u: "1f6b6-200d-2640-fe0f-200d-27a1-fe0f",
+		v: [
+			"1f6b6-1f3fb-200d-2640-fe0f-200d-27a1-fe0f",
+			"1f6b6-1f3fc-200d-2640-fe0f-200d-27a1-fe0f",
+			"1f6b6-1f3fd-200d-2640-fe0f-200d-27a1-fe0f",
+			"1f6b6-1f3fe-200d-2640-fe0f-200d-27a1-fe0f",
+			"1f6b6-1f3ff-200d-2640-fe0f-200d-27a1-fe0f"
+		],
+		a: "15.1"
+	},
+	{
+		n: [
+			"man walking facing right"
+		],
+		u: "1f6b6-200d-2642-fe0f-200d-27a1-fe0f",
+		v: [
+			"1f6b6-1f3fb-200d-2642-fe0f-200d-27a1-fe0f",
+			"1f6b6-1f3fc-200d-2642-fe0f-200d-27a1-fe0f",
+			"1f6b6-1f3fd-200d-2642-fe0f-200d-27a1-fe0f",
+			"1f6b6-1f3fe-200d-2642-fe0f-200d-27a1-fe0f",
+			"1f6b6-1f3ff-200d-2642-fe0f-200d-27a1-fe0f"
+		],
+		a: "15.1"
+	},
+	{
+		n: [
 			"standing person"
 		],
 		u: "1f9cd",
@@ -5064,6 +5366,48 @@ var smileys_people = [
 	},
 	{
 		n: [
+			"person kneeling facing right"
+		],
+		u: "1f9ce-200d-27a1-fe0f",
+		v: [
+			"1f9ce-1f3fb-200d-27a1-fe0f",
+			"1f9ce-1f3fc-200d-27a1-fe0f",
+			"1f9ce-1f3fd-200d-27a1-fe0f",
+			"1f9ce-1f3fe-200d-27a1-fe0f",
+			"1f9ce-1f3ff-200d-27a1-fe0f"
+		],
+		a: "15.1"
+	},
+	{
+		n: [
+			"woman kneeling facing right"
+		],
+		u: "1f9ce-200d-2640-fe0f-200d-27a1-fe0f",
+		v: [
+			"1f9ce-1f3fb-200d-2640-fe0f-200d-27a1-fe0f",
+			"1f9ce-1f3fc-200d-2640-fe0f-200d-27a1-fe0f",
+			"1f9ce-1f3fd-200d-2640-fe0f-200d-27a1-fe0f",
+			"1f9ce-1f3fe-200d-2640-fe0f-200d-27a1-fe0f",
+			"1f9ce-1f3ff-200d-2640-fe0f-200d-27a1-fe0f"
+		],
+		a: "15.1"
+	},
+	{
+		n: [
+			"man kneeling facing right"
+		],
+		u: "1f9ce-200d-2642-fe0f-200d-27a1-fe0f",
+		v: [
+			"1f9ce-1f3fb-200d-2642-fe0f-200d-27a1-fe0f",
+			"1f9ce-1f3fc-200d-2642-fe0f-200d-27a1-fe0f",
+			"1f9ce-1f3fd-200d-2642-fe0f-200d-27a1-fe0f",
+			"1f9ce-1f3fe-200d-2642-fe0f-200d-27a1-fe0f",
+			"1f9ce-1f3ff-200d-2642-fe0f-200d-27a1-fe0f"
+		],
+		a: "15.1"
+	},
+	{
+		n: [
 			"person with white cane",
 			"person with probing cane"
 		],
@@ -5076,6 +5420,20 @@ var smileys_people = [
 			"1f9d1-1f3ff-200d-1f9af"
 		],
 		a: "12.1"
+	},
+	{
+		n: [
+			"person with white cane facing right"
+		],
+		u: "1f9d1-200d-1f9af-200d-27a1-fe0f",
+		v: [
+			"1f9d1-1f3fb-200d-1f9af-200d-27a1-fe0f",
+			"1f9d1-1f3fc-200d-1f9af-200d-27a1-fe0f",
+			"1f9d1-1f3fd-200d-1f9af-200d-27a1-fe0f",
+			"1f9d1-1f3fe-200d-1f9af-200d-27a1-fe0f",
+			"1f9d1-1f3ff-200d-1f9af-200d-27a1-fe0f"
+		],
+		a: "15.1"
 	},
 	{
 		n: [
@@ -5094,6 +5452,20 @@ var smileys_people = [
 	},
 	{
 		n: [
+			"man with white cane facing right"
+		],
+		u: "1f468-200d-1f9af-200d-27a1-fe0f",
+		v: [
+			"1f468-1f3fb-200d-1f9af-200d-27a1-fe0f",
+			"1f468-1f3fc-200d-1f9af-200d-27a1-fe0f",
+			"1f468-1f3fd-200d-1f9af-200d-27a1-fe0f",
+			"1f468-1f3fe-200d-1f9af-200d-27a1-fe0f",
+			"1f468-1f3ff-200d-1f9af-200d-27a1-fe0f"
+		],
+		a: "15.1"
+	},
+	{
+		n: [
 			"woman with white cane",
 			"woman with probing cane"
 		],
@@ -5106,6 +5478,20 @@ var smileys_people = [
 			"1f469-1f3ff-200d-1f9af"
 		],
 		a: "12.0"
+	},
+	{
+		n: [
+			"woman with white cane facing right"
+		],
+		u: "1f469-200d-1f9af-200d-27a1-fe0f",
+		v: [
+			"1f469-1f3fb-200d-1f9af-200d-27a1-fe0f",
+			"1f469-1f3fc-200d-1f9af-200d-27a1-fe0f",
+			"1f469-1f3fd-200d-1f9af-200d-27a1-fe0f",
+			"1f469-1f3fe-200d-1f9af-200d-27a1-fe0f",
+			"1f469-1f3ff-200d-1f9af-200d-27a1-fe0f"
+		],
+		a: "15.1"
 	},
 	{
 		n: [
@@ -5123,6 +5509,20 @@ var smileys_people = [
 	},
 	{
 		n: [
+			"person in motorized wheelchair facing right"
+		],
+		u: "1f9d1-200d-1f9bc-200d-27a1-fe0f",
+		v: [
+			"1f9d1-1f3fb-200d-1f9bc-200d-27a1-fe0f",
+			"1f9d1-1f3fc-200d-1f9bc-200d-27a1-fe0f",
+			"1f9d1-1f3fd-200d-1f9bc-200d-27a1-fe0f",
+			"1f9d1-1f3fe-200d-1f9bc-200d-27a1-fe0f",
+			"1f9d1-1f3ff-200d-1f9bc-200d-27a1-fe0f"
+		],
+		a: "15.1"
+	},
+	{
+		n: [
 			"man in motorized wheelchair"
 		],
 		u: "1f468-200d-1f9bc",
@@ -5134,6 +5534,20 @@ var smileys_people = [
 			"1f468-1f3ff-200d-1f9bc"
 		],
 		a: "12.0"
+	},
+	{
+		n: [
+			"man in motorized wheelchair facing right"
+		],
+		u: "1f468-200d-1f9bc-200d-27a1-fe0f",
+		v: [
+			"1f468-1f3fb-200d-1f9bc-200d-27a1-fe0f",
+			"1f468-1f3fc-200d-1f9bc-200d-27a1-fe0f",
+			"1f468-1f3fd-200d-1f9bc-200d-27a1-fe0f",
+			"1f468-1f3fe-200d-1f9bc-200d-27a1-fe0f",
+			"1f468-1f3ff-200d-1f9bc-200d-27a1-fe0f"
+		],
+		a: "15.1"
 	},
 	{
 		n: [
@@ -5151,6 +5565,20 @@ var smileys_people = [
 	},
 	{
 		n: [
+			"woman in motorized wheelchair facing right"
+		],
+		u: "1f469-200d-1f9bc-200d-27a1-fe0f",
+		v: [
+			"1f469-1f3fb-200d-1f9bc-200d-27a1-fe0f",
+			"1f469-1f3fc-200d-1f9bc-200d-27a1-fe0f",
+			"1f469-1f3fd-200d-1f9bc-200d-27a1-fe0f",
+			"1f469-1f3fe-200d-1f9bc-200d-27a1-fe0f",
+			"1f469-1f3ff-200d-1f9bc-200d-27a1-fe0f"
+		],
+		a: "15.1"
+	},
+	{
+		n: [
 			"person in manual wheelchair"
 		],
 		u: "1f9d1-200d-1f9bd",
@@ -5162,6 +5590,20 @@ var smileys_people = [
 			"1f9d1-1f3ff-200d-1f9bd"
 		],
 		a: "12.1"
+	},
+	{
+		n: [
+			"person in manual wheelchair facing right"
+		],
+		u: "1f9d1-200d-1f9bd-200d-27a1-fe0f",
+		v: [
+			"1f9d1-1f3fb-200d-1f9bd-200d-27a1-fe0f",
+			"1f9d1-1f3fc-200d-1f9bd-200d-27a1-fe0f",
+			"1f9d1-1f3fd-200d-1f9bd-200d-27a1-fe0f",
+			"1f9d1-1f3fe-200d-1f9bd-200d-27a1-fe0f",
+			"1f9d1-1f3ff-200d-1f9bd-200d-27a1-fe0f"
+		],
+		a: "15.1"
 	},
 	{
 		n: [
@@ -5179,6 +5621,20 @@ var smileys_people = [
 	},
 	{
 		n: [
+			"man in manual wheelchair facing right"
+		],
+		u: "1f468-200d-1f9bd-200d-27a1-fe0f",
+		v: [
+			"1f468-1f3fb-200d-1f9bd-200d-27a1-fe0f",
+			"1f468-1f3fc-200d-1f9bd-200d-27a1-fe0f",
+			"1f468-1f3fd-200d-1f9bd-200d-27a1-fe0f",
+			"1f468-1f3fe-200d-1f9bd-200d-27a1-fe0f",
+			"1f468-1f3ff-200d-1f9bd-200d-27a1-fe0f"
+		],
+		a: "15.1"
+	},
+	{
+		n: [
 			"woman in manual wheelchair"
 		],
 		u: "1f469-200d-1f9bd",
@@ -5190,6 +5646,20 @@ var smileys_people = [
 			"1f469-1f3ff-200d-1f9bd"
 		],
 		a: "12.0"
+	},
+	{
+		n: [
+			"woman in manual wheelchair facing right"
+		],
+		u: "1f469-200d-1f9bd-200d-27a1-fe0f",
+		v: [
+			"1f469-1f3fb-200d-1f9bd-200d-27a1-fe0f",
+			"1f469-1f3fc-200d-1f9bd-200d-27a1-fe0f",
+			"1f469-1f3fd-200d-1f9bd-200d-27a1-fe0f",
+			"1f469-1f3fe-200d-1f9bd-200d-27a1-fe0f",
+			"1f469-1f3ff-200d-1f9bd-200d-27a1-fe0f"
+		],
+		a: "15.1"
 	},
 	{
 		n: [
@@ -5235,6 +5705,48 @@ var smileys_people = [
 			"1f3c3-1f3ff-200d-2640-fe0f"
 		],
 		a: "4.0"
+	},
+	{
+		n: [
+			"person running facing right"
+		],
+		u: "1f3c3-200d-27a1-fe0f",
+		v: [
+			"1f3c3-1f3fb-200d-27a1-fe0f",
+			"1f3c3-1f3fc-200d-27a1-fe0f",
+			"1f3c3-1f3fd-200d-27a1-fe0f",
+			"1f3c3-1f3fe-200d-27a1-fe0f",
+			"1f3c3-1f3ff-200d-27a1-fe0f"
+		],
+		a: "15.1"
+	},
+	{
+		n: [
+			"woman running facing right"
+		],
+		u: "1f3c3-200d-2640-fe0f-200d-27a1-fe0f",
+		v: [
+			"1f3c3-1f3fb-200d-2640-fe0f-200d-27a1-fe0f",
+			"1f3c3-1f3fc-200d-2640-fe0f-200d-27a1-fe0f",
+			"1f3c3-1f3fd-200d-2640-fe0f-200d-27a1-fe0f",
+			"1f3c3-1f3fe-200d-2640-fe0f-200d-27a1-fe0f",
+			"1f3c3-1f3ff-200d-2640-fe0f-200d-27a1-fe0f"
+		],
+		a: "15.1"
+	},
+	{
+		n: [
+			"man running facing right"
+		],
+		u: "1f3c3-200d-2642-fe0f-200d-27a1-fe0f",
+		v: [
+			"1f3c3-1f3fb-200d-2642-fe0f-200d-27a1-fe0f",
+			"1f3c3-1f3fc-200d-2642-fe0f-200d-27a1-fe0f",
+			"1f3c3-1f3fd-200d-2642-fe0f-200d-27a1-fe0f",
+			"1f3c3-1f3fe-200d-2642-fe0f-200d-27a1-fe0f",
+			"1f3c3-1f3ff-200d-2642-fe0f-200d-27a1-fe0f"
+		],
+		a: "15.1"
 	},
 	{
 		n: [
@@ -6476,13 +6988,6 @@ var smileys_people = [
 	},
 	{
 		n: [
-			"family"
-		],
-		u: "1f46a",
-		a: "0.6"
-	},
-	{
-		n: [
 			"man-woman-boy",
 			"family: man, woman, boy"
 		],
@@ -6712,6 +7217,45 @@ var smileys_people = [
 	},
 	{
 		n: [
+			"family"
+		],
+		u: "1f46a",
+		a: "0.6"
+	},
+	{
+		n: [
+			"family adult adult child",
+			"family: adult, adult, child"
+		],
+		u: "1f9d1-200d-1f9d1-200d-1f9d2",
+		a: "15.1"
+	},
+	{
+		n: [
+			"family adult adult child child",
+			"family: adult, adult, child, child"
+		],
+		u: "1f9d1-200d-1f9d1-200d-1f9d2-200d-1f9d2",
+		a: "15.1"
+	},
+	{
+		n: [
+			"family adult child",
+			"family: adult, child"
+		],
+		u: "1f9d1-200d-1f9d2",
+		a: "15.1"
+	},
+	{
+		n: [
+			"family adult child child",
+			"family: adult, child, child"
+		],
+		u: "1f9d1-200d-1f9d2-200d-1f9d2",
+		a: "15.1"
+	},
+	{
+		n: [
 			"footprints"
 		],
 		u: "1f463",
@@ -6866,6 +7410,20 @@ var animals_nature = [
 		],
 		u: "1f434",
 		a: "0.6"
+	},
+	{
+		n: [
+			"moose"
+		],
+		u: "1face",
+		a: "15.0"
+	},
+	{
+		n: [
+			"donkey"
+		],
+		u: "1facf",
+		a: "15.0"
 	},
 	{
 		n: [
@@ -7318,6 +7876,34 @@ var animals_nature = [
 	},
 	{
 		n: [
+			"wing"
+		],
+		u: "1fabd",
+		a: "15.0"
+	},
+	{
+		n: [
+			"black bird"
+		],
+		u: "1f426-200d-2b1b",
+		a: "15.0"
+	},
+	{
+		n: [
+			"goose"
+		],
+		u: "1fabf",
+		a: "15.0"
+	},
+	{
+		n: [
+			"phoenix"
+		],
+		u: "1f426-200d-1f525",
+		a: "15.1"
+	},
+	{
+		n: [
 			"frog",
 			"frog face"
 		],
@@ -7460,6 +8046,13 @@ var animals_nature = [
 		],
 		u: "1fab8",
 		a: "14.0"
+	},
+	{
+		n: [
+			"jellyfish"
+		],
+		u: "1fabc",
+		a: "15.0"
 	},
 	{
 		n: [
@@ -7654,6 +8247,13 @@ var animals_nature = [
 	},
 	{
 		n: [
+			"hyacinth"
+		],
+		u: "1fabb",
+		a: "15.0"
+	},
+	{
+		n: [
 			"seedling"
 		],
 		u: "1f331",
@@ -7757,6 +8357,13 @@ var animals_nature = [
 		],
 		u: "1faba",
 		a: "14.0"
+	},
+	{
+		n: [
+			"mushroom"
+		],
+		u: "1f344",
+		a: "0.6"
 	}
 ];
 var food_drink = [
@@ -7794,6 +8401,13 @@ var food_drink = [
 		],
 		u: "1f34b",
 		a: "1.0"
+	},
+	{
+		n: [
+			"lime"
+		],
+		u: "1f34b-200d-1f7e9",
+		a: "15.1"
 	},
 	{
 		n: [
@@ -7982,13 +8596,6 @@ var food_drink = [
 	},
 	{
 		n: [
-			"mushroom"
-		],
-		u: "1f344",
-		a: "0.6"
-	},
-	{
-		n: [
 			"peanuts"
 		],
 		u: "1f95c",
@@ -8007,6 +8614,27 @@ var food_drink = [
 		],
 		u: "1f330",
 		a: "0.6"
+	},
+	{
+		n: [
+			"ginger root"
+		],
+		u: "1fada",
+		a: "15.0"
+	},
+	{
+		n: [
+			"pea pod"
+		],
+		u: "1fadb",
+		a: "15.0"
+	},
+	{
+		n: [
+			"brown mushroom"
+		],
+		u: "1f344-200d-1f7eb",
+		a: "15.1"
 	},
 	{
 		n: [
@@ -10744,6 +11372,14 @@ var activities = [
 	},
 	{
 		n: [
+			"gun",
+			"pistol"
+		],
+		u: "1f52b",
+		a: "0.6"
+	},
+	{
+		n: [
 			"8ball",
 			"billiards"
 		],
@@ -10763,20 +11399,6 @@ var activities = [
 		],
 		u: "1fa84",
 		a: "13.0"
-	},
-	{
-		n: [
-			"nazar amulet"
-		],
-		u: "1f9ff",
-		a: "11.0"
-	},
-	{
-		n: [
-			"hamsa"
-		],
-		u: "1faac",
-		a: "14.0"
 	},
 	{
 		n: [
@@ -11104,6 +11726,13 @@ var objects = [
 	},
 	{
 		n: [
+			"folding hand fan"
+		],
+		u: "1faad",
+		a: "15.0"
+	},
+	{
+		n: [
 			"purse"
 		],
 		u: "1f45b",
@@ -11204,6 +11833,13 @@ var objects = [
 		],
 		u: "1f462",
 		a: "0.6"
+	},
+	{
+		n: [
+			"hair pick"
+		],
+		u: "1faae",
+		a: "15.0"
 	},
 	{
 		n: [
@@ -11482,6 +12118,20 @@ var objects = [
 		],
 		u: "1fa98",
 		a: "13.0"
+	},
+	{
+		n: [
+			"maracas"
+		],
+		u: "1fa87",
+		a: "15.0"
+	},
+	{
+		n: [
+			"flute"
+		],
+		u: "1fa88",
+		a: "15.0"
 	},
 	{
 		n: [
@@ -12362,10 +13012,9 @@ var objects = [
 	},
 	{
 		n: [
-			"gun",
-			"pistol"
+			"bomb"
 		],
-		u: "1f52b",
+		u: "1f4a3",
 		a: "0.6"
 	},
 	{
@@ -12454,6 +13103,13 @@ var objects = [
 		],
 		u: "1f517",
 		a: "0.6"
+	},
+	{
+		n: [
+			"broken chain"
+		],
+		u: "26d3-fe0f-200d-1f4a5",
+		a: "15.1"
 	},
 	{
 		n: [
@@ -12793,6 +13449,20 @@ var objects = [
 		],
 		u: "26b1-fe0f",
 		a: "1.0"
+	},
+	{
+		n: [
+			"nazar amulet"
+		],
+		u: "1f9ff",
+		a: "11.0"
+	},
+	{
+		n: [
+			"hamsa"
+		],
+		u: "1faac",
+		a: "14.0"
 	},
 	{
 		n: [
@@ -13267,6 +13937,13 @@ var symbols = [
 	},
 	{
 		n: [
+			"khanda"
+		],
+		u: "1faaf",
+		a: "15.0"
+	},
+	{
+		n: [
 			"aries"
 		],
 		u: "2648",
@@ -13529,6 +14206,13 @@ var symbols = [
 		],
 		u: "1f4f6",
 		a: "0.6"
+	},
+	{
+		n: [
+			"wireless"
+		],
+		u: "1f6dc",
+		a: "15.0"
 	},
 	{
 		n: [
@@ -16415,7 +17099,7 @@ var flags = [
 	{
 		n: [
 			"flag-tr",
-			"turkey flag"
+			"türkiye flag"
 		],
 		u: "1f1f9-1f1f7",
 		a: "2.0"
@@ -16687,20 +17371,54 @@ var EmojiProperties;
   EmojiProperties["imgUrl"] = "imgUrl";
 })(EmojiProperties || (EmojiProperties = {}));
 
-var alphaNumericEmojiIndex = {};
-setTimeout(function () {
-  allEmojis.reduce(function (searchIndex, emoji) {
-    indexEmoji(emoji);
-    return searchIndex;
-  }, alphaNumericEmojiIndex);
-});
-function indexEmoji(emoji) {
-  var joinedNameString = emojiNames(emoji).flat().join('').toLowerCase().replace(/[^a-zA-Z\d]/g, '').split('');
-  joinedNameString.forEach(function (_char) {
-    var _alphaNumericEmojiInd;
-    alphaNumericEmojiIndex[_char] = (_alphaNumericEmojiInd = alphaNumericEmojiIndex[_char]) != null ? _alphaNumericEmojiInd : {};
-    alphaNumericEmojiIndex[_char][emojiUnified(emoji)] = emoji;
+var SUGGESTED_LS_KEY = 'epr_suggested';
+function getSuggested(mode) {
+  try {
+    var _window, _window$localStorage$, _window2;
+    if (!((_window = window) != null && _window.localStorage)) {
+      return [];
+    }
+    var recent = JSON.parse((_window$localStorage$ = (_window2 = window) == null ? void 0 : _window2.localStorage.getItem(SUGGESTED_LS_KEY)) != null ? _window$localStorage$ : '[]');
+    if (mode === SuggestionMode.FREQUENT) {
+      return recent.sort(function (a, b) {
+        return b.count - a.count;
+      });
+    }
+    return recent;
+  } catch (_unused) {
+    return [];
+  }
+}
+function setSuggested(emoji, skinTone) {
+  var recent = getSuggested();
+  var unified = emojiUnified(emoji, skinTone);
+  var originalUnified = emojiUnified(emoji);
+  var existing = recent.find(function (_ref) {
+    var u = _ref.unified;
+    return u === unified;
   });
+  var nextList;
+  if (existing) {
+    nextList = [existing].concat(recent.filter(function (i) {
+      return i !== existing;
+    }));
+  } else {
+    existing = {
+      unified: unified,
+      original: originalUnified,
+      count: 0
+    };
+    nextList = [existing].concat(recent);
+  }
+  existing.count++;
+  nextList.length = Math.min(nextList.length, 14);
+  try {
+    var _window3;
+    (_window3 = window) == null || _window3.localStorage.setItem(SUGGESTED_LS_KEY, JSON.stringify(nextList));
+    // Prevents the change from being seen immediately.
+  } catch (_unused2) {
+    // ignore
+  }
 }
 
 function emojiNames(emoji) {
@@ -16733,10 +17451,27 @@ function emojiUnified(emoji, skinTone) {
   }
   return (_emojiVariationUnifie = emojiVariationUnified(emoji, skinTone)) != null ? _emojiVariationUnifie : unified;
 }
-function emojisByCategory(category) {
-  var _emojis$category;
-  // @ts-ignore
-  return (_emojis$category = emojis == null ? void 0 : emojis[category]) != null ? _emojis$category : [];
+function useGetEmojisByCategory() {
+  var suggestedEmojisModeConfig = useSuggestedEmojisModeConfig();
+  var _useUpdateSuggested = useUpdateSuggested(),
+    suggestedUpdated = _useUpdateSuggested[0];
+  var suggested = React__default.useMemo(function () {
+    var _getSuggested;
+    var suggested = (_getSuggested = getSuggested(suggestedEmojisModeConfig)) != null ? _getSuggested : [];
+    return suggested.map(function (s) {
+      return emojiByUnified(s.unified);
+    }).filter(Boolean);
+  },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  [suggestedUpdated, suggestedEmojisModeConfig]);
+  return function getEmojisByCategory(category) {
+    var _emojis$category;
+    if (category === Categories.SUGGESTED) {
+      return suggested;
+    }
+    // @ts-ignore
+    return (_emojis$category = emojis[category]) != null ? _emojis$category : [];
+  };
 }
 // WARNING: DO NOT USE DIRECTLY
 function emojiUrlByUnified(unified, emojiStyle) {
@@ -16829,6 +17564,9 @@ function mergeConfig(userConfig) {
   var categories = mergeCategoriesConfig(userConfig.categories, {
     suggestionMode: config.suggestedEmojisMode
   });
+  config.hiddenEmojis.forEach(function (emoji) {
+    config.unicodeToHide.add(emoji);
+  });
   setCustomEmojis((_config$customEmojis = config.customEmojis) != null ? _config$customEmojis : []);
   var skinTonePickerLocation = config.searchDisabled ? SkinTonePickerLocation.PREVIEW : config.skinTonePickerLocation;
   return _extends({}, config, {
@@ -16863,7 +17601,8 @@ function basePickerConfig() {
     reactionsDefaultOpen: false,
     reactions: DEFAULT_REACTIONS,
     open: true,
-    allowExpandReactions: true
+    allowExpandReactions: true,
+    hiddenEmojis: []
   };
 }
 var basePreviewConfig = {
@@ -16873,7 +17612,7 @@ var basePreviewConfig = {
 };
 
 var _excluded = ["children"];
-var ConfigContext = /*#__PURE__*/createContext( /*#__PURE__*/basePickerConfig());
+var ConfigContext = /*#__PURE__*/createContext(/*#__PURE__*/basePickerConfig());
 function PickerConfigProvider(_ref) {
   var children = _ref.children,
     config = _objectWithoutPropertiesLoose(_ref, _excluded);
@@ -16911,12 +17650,16 @@ function useMutableConfig() {
 function useDefineMutableConfig(config) {
   var MutableConfigRef = React__default.useRef({
     onEmojiClick: config.onEmojiClick || emptyFunc,
-    onReactionClick: config.onReactionClick || config.onEmojiClick
+    onReactionClick: config.onReactionClick || config.onEmojiClick,
+    onSkinToneChange: config.onSkinToneChange || emptyFunc
   });
   React__default.useEffect(function () {
     MutableConfigRef.current.onEmojiClick = config.onEmojiClick || emptyFunc;
     MutableConfigRef.current.onReactionClick = config.onReactionClick || config.onEmojiClick;
   }, [config.onEmojiClick, config.onReactionClick]);
+  React__default.useEffect(function () {
+    MutableConfigRef.current.onSkinToneChange = config.onSkinToneChange || emptyFunc;
+  }, [config.onSkinToneChange]);
   return MutableConfigRef;
 }
 function emptyFunc() {}
@@ -16976,80 +17719,110 @@ function useOpenConfig() {
   return open;
 }
 function useOnEmojiClickConfig(mouseEventSource) {
-  var _ref;
   var _useMutableConfig = useMutableConfig(),
     current = _useMutableConfig.current;
-  var handler = (_ref = mouseEventSource === MOUSE_EVENT_SOURCE.REACTIONS ? current.onReactionClick : current.onEmojiClick) != null ? _ref : current.onEmojiClick;
-  return handler || function () {};
+  var _useReactionsModeStat = useReactionsModeState(),
+    setReactionsOpen = _useReactionsModeStat[1];
+  var handler = current.onEmojiClick || function () {};
+  var onReactionClick = current.onReactionClick;
+  if (mouseEventSource === MOUSE_EVENT_SOURCE.REACTIONS && onReactionClick) {
+    return function () {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+      return onReactionClick.apply(void 0, args.concat([{
+        collapseToReactions: function collapseToReactions() {
+          setReactionsOpen(function (o) {
+            return o;
+          });
+        }
+      }]));
+    };
+  }
+  return function () {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+    handler.apply(void 0, args.concat([{
+      collapseToReactions: function collapseToReactions() {
+        setReactionsOpen(true);
+      }
+    }]));
+  };
+}
+function useOnSkinToneChangeConfig() {
+  var _useMutableConfig2 = useMutableConfig(),
+    current = _useMutableConfig2.current;
+  return current.onSkinToneChange || function () {};
 }
 function usePreviewConfig() {
-  var _usePickerConfig10 = usePickerConfig(),
-    previewConfig = _usePickerConfig10.previewConfig;
+  var _usePickerConfig0 = usePickerConfig(),
+    previewConfig = _usePickerConfig0.previewConfig;
   return previewConfig;
 }
 function useThemeConfig() {
-  var _usePickerConfig11 = usePickerConfig(),
-    theme = _usePickerConfig11.theme;
+  var _usePickerConfig1 = usePickerConfig(),
+    theme = _usePickerConfig1.theme;
   return theme;
 }
 function useSuggestedEmojisModeConfig() {
-  var _usePickerConfig12 = usePickerConfig(),
-    suggestedEmojisMode = _usePickerConfig12.suggestedEmojisMode;
+  var _usePickerConfig10 = usePickerConfig(),
+    suggestedEmojisMode = _usePickerConfig10.suggestedEmojisMode;
   return suggestedEmojisMode;
 }
 function useLazyLoadEmojisConfig() {
-  var _usePickerConfig13 = usePickerConfig(),
-    lazyLoadEmojis = _usePickerConfig13.lazyLoadEmojis;
+  var _usePickerConfig11 = usePickerConfig(),
+    lazyLoadEmojis = _usePickerConfig11.lazyLoadEmojis;
   return lazyLoadEmojis;
 }
 function useClassNameConfig() {
-  var _usePickerConfig14 = usePickerConfig(),
-    className = _usePickerConfig14.className;
+  var _usePickerConfig12 = usePickerConfig(),
+    className = _usePickerConfig12.className;
   return className;
 }
 function useStyleConfig() {
-  var _usePickerConfig15 = usePickerConfig(),
-    height = _usePickerConfig15.height,
-    width = _usePickerConfig15.width,
-    style = _usePickerConfig15.style;
+  var _usePickerConfig13 = usePickerConfig(),
+    height = _usePickerConfig13.height,
+    width = _usePickerConfig13.width,
+    style = _usePickerConfig13.style;
   return _extends({
     height: getDimension(height),
     width: getDimension(width)
   }, style);
 }
 function useReactionsOpenConfig() {
-  var _usePickerConfig16 = usePickerConfig(),
-    reactionsDefaultOpen = _usePickerConfig16.reactionsDefaultOpen;
+  var _usePickerConfig14 = usePickerConfig(),
+    reactionsDefaultOpen = _usePickerConfig14.reactionsDefaultOpen;
   return reactionsDefaultOpen;
 }
 function useEmojiVersionConfig() {
-  var _usePickerConfig17 = usePickerConfig(),
-    emojiVersion = _usePickerConfig17.emojiVersion;
+  var _usePickerConfig15 = usePickerConfig(),
+    emojiVersion = _usePickerConfig15.emojiVersion;
   return emojiVersion;
 }
 function useSearchDisabledConfig() {
-  var _usePickerConfig18 = usePickerConfig(),
-    searchDisabled = _usePickerConfig18.searchDisabled;
+  var _usePickerConfig16 = usePickerConfig(),
+    searchDisabled = _usePickerConfig16.searchDisabled;
   return searchDisabled;
 }
 function useSkinTonePickerLocationConfig() {
-  var _usePickerConfig19 = usePickerConfig(),
-    skinTonePickerLocation = _usePickerConfig19.skinTonePickerLocation;
+  var _usePickerConfig17 = usePickerConfig(),
+    skinTonePickerLocation = _usePickerConfig17.skinTonePickerLocation;
   return skinTonePickerLocation;
 }
 function useUnicodeToHide() {
-  var _usePickerConfig20 = usePickerConfig(),
-    unicodeToHide = _usePickerConfig20.unicodeToHide;
+  var _usePickerConfig18 = usePickerConfig(),
+    unicodeToHide = _usePickerConfig18.unicodeToHide;
   return unicodeToHide;
 }
 function useReactionsConfig() {
-  var _usePickerConfig21 = usePickerConfig(),
-    reactions = _usePickerConfig21.reactions;
+  var _usePickerConfig19 = usePickerConfig(),
+    reactions = _usePickerConfig19.reactions;
   return reactions;
 }
 function useGetEmojiUrlConfig() {
-  var _usePickerConfig22 = usePickerConfig(),
-    getEmojiUrl = _usePickerConfig22.getEmojiUrl;
+  var _usePickerConfig20 = usePickerConfig(),
+    getEmojiUrl = _usePickerConfig20.getEmojiUrl;
   return getEmojiUrl;
 }
 function getDimension(dimensionConfig) {
@@ -17062,197 +17835,6 @@ function useSearchResultsConfig(searchResultsCount) {
     return isPlural ? SEARCH_RESULTS_MULTIPLE_RESULTS_FOUND.replace('%n', searchResultsCount.toString()) : SEARCH_RESULTS_ONE_RESULT_FOUND;
   }
   return SEARCH_RESULTS_NO_RESULTS_FOUND;
-}
-
-function useDebouncedState(initialValue, delay) {
-  if (delay === void 0) {
-    delay = 0;
-  }
-  var _useState = useState(initialValue),
-    state = _useState[0],
-    setState = _useState[1];
-  var timer = useRef(null);
-  function debouncedSetState(value) {
-    return new Promise(function (resolve) {
-      var _window;
-      if (timer.current) {
-        clearTimeout(timer.current);
-      }
-      timer.current = (_window = window) == null ? void 0 : _window.setTimeout(function () {
-        setState(value);
-        resolve(value);
-      }, delay);
-    });
-  }
-  return [state, debouncedSetState];
-}
-
-function useIsUnicodeHidden() {
-  var unicodeToHide = useUnicodeToHide();
-  return function (emojiUnified) {
-    return unicodeToHide.has(emojiUnified);
-  };
-}
-
-function useDisallowedEmojis() {
-  var DisallowedEmojisRef = useRef({});
-  var emojiVersionConfig = useEmojiVersionConfig();
-  return useMemo(function () {
-    var emojiVersion = parseFloat("" + emojiVersionConfig);
-    if (!emojiVersionConfig || Number.isNaN(emojiVersion)) {
-      return DisallowedEmojisRef.current;
-    }
-    return allEmojis.reduce(function (disallowedEmojis, emoji) {
-      if (addedInNewerVersion(emoji, emojiVersion)) {
-        disallowedEmojis[emojiUnified(emoji)] = true;
-      }
-      return disallowedEmojis;
-    }, DisallowedEmojisRef.current);
-  }, [emojiVersionConfig]);
-}
-function useIsEmojiDisallowed() {
-  var disallowedEmojis = useDisallowedEmojis();
-  var isUnicodeHidden = useIsUnicodeHidden();
-  return function isEmojiDisallowed(emoji) {
-    var unified = unifiedWithoutSkinTone(emojiUnified(emoji));
-    return Boolean(disallowedEmojis[unified] || isUnicodeHidden(unified));
-  };
-}
-function addedInNewerVersion(emoji, supportedLevel) {
-  return addedIn(emoji) > supportedLevel;
-}
-
-function useMarkInitialLoad(dispatch) {
-  useEffect(function () {
-    dispatch(true);
-  }, [dispatch]);
-}
-
-function PickerContextProvider(_ref) {
-  var children = _ref.children;
-  var disallowedEmojis = useDisallowedEmojis();
-  var defaultSkinTone = useDefaultSkinToneConfig();
-  var reactionsDefaultOpen = useReactionsOpenConfig();
-  // Initialize the filter with the inititial dictionary
-  var filterRef = useRef(alphaNumericEmojiIndex);
-  var disallowClickRef = useRef(false);
-  var disallowMouseRef = useRef(false);
-  var disallowedEmojisRef = useRef(disallowedEmojis);
-  var suggestedUpdateState = useDebouncedState(Date.now(), 200);
-  var searchTerm = useDebouncedState('', 100);
-  var skinToneFanOpenState = useState(false);
-  var activeSkinTone = useState(defaultSkinTone);
-  var activeCategoryState = useState(null);
-  var emojisThatFailedToLoadState = useState(new Set());
-  var emojiVariationPickerState = useState(null);
-  var reactionsModeState = useState(reactionsDefaultOpen);
-  var _useState = useState(false),
-    isPastInitialLoad = _useState[0],
-    setIsPastInitialLoad = _useState[1];
-  useMarkInitialLoad(setIsPastInitialLoad);
-  return createElement(PickerContext.Provider, {
-    value: {
-      activeCategoryState: activeCategoryState,
-      activeSkinTone: activeSkinTone,
-      disallowClickRef: disallowClickRef,
-      disallowMouseRef: disallowMouseRef,
-      disallowedEmojisRef: disallowedEmojisRef,
-      emojiVariationPickerState: emojiVariationPickerState,
-      emojisThatFailedToLoadState: emojisThatFailedToLoadState,
-      filterRef: filterRef,
-      isPastInitialLoad: isPastInitialLoad,
-      searchTerm: searchTerm,
-      skinToneFanOpenState: skinToneFanOpenState,
-      suggestedUpdateState: suggestedUpdateState,
-      reactionsModeState: reactionsModeState
-    }
-  }, children);
-}
-var PickerContext = /*#__PURE__*/createContext({
-  activeCategoryState: [null, function () {}],
-  activeSkinTone: [SkinTones.NEUTRAL, function () {}],
-  disallowClickRef: {
-    current: false
-  },
-  disallowMouseRef: {
-    current: false
-  },
-  disallowedEmojisRef: {
-    current: {}
-  },
-  emojiVariationPickerState: [null, function () {}],
-  emojisThatFailedToLoadState: [/*#__PURE__*/new Set(), function () {}],
-  filterRef: {
-    current: {}
-  },
-  isPastInitialLoad: true,
-  searchTerm: ['', function () {
-    return new Promise(function () {
-      return undefined;
-    });
-  }],
-  skinToneFanOpenState: [false, function () {}],
-  suggestedUpdateState: [/*#__PURE__*/Date.now(), function () {}],
-  reactionsModeState: [false, function () {}]
-});
-function useFilterRef() {
-  var _React$useContext = useContext(PickerContext),
-    filterRef = _React$useContext.filterRef;
-  return filterRef;
-}
-function useDisallowClickRef() {
-  var _React$useContext2 = useContext(PickerContext),
-    disallowClickRef = _React$useContext2.disallowClickRef;
-  return disallowClickRef;
-}
-function useDisallowMouseRef() {
-  var _React$useContext3 = useContext(PickerContext),
-    disallowMouseRef = _React$useContext3.disallowMouseRef;
-  return disallowMouseRef;
-}
-function useReactionsModeState() {
-  var _React$useContext4 = useContext(PickerContext),
-    reactionsModeState = _React$useContext4.reactionsModeState;
-  return reactionsModeState;
-}
-function useSearchTermState() {
-  var _React$useContext5 = useContext(PickerContext),
-    searchTerm = _React$useContext5.searchTerm;
-  return searchTerm;
-}
-function useActiveSkinToneState() {
-  var _React$useContext6 = useContext(PickerContext),
-    activeSkinTone = _React$useContext6.activeSkinTone;
-  return activeSkinTone;
-}
-function useEmojisThatFailedToLoadState() {
-  var _React$useContext7 = useContext(PickerContext),
-    emojisThatFailedToLoadState = _React$useContext7.emojisThatFailedToLoadState;
-  return emojisThatFailedToLoadState;
-}
-function useIsPastInitialLoad() {
-  var _React$useContext8 = useContext(PickerContext),
-    isPastInitialLoad = _React$useContext8.isPastInitialLoad;
-  return isPastInitialLoad;
-}
-function useEmojiVariationPickerState() {
-  var _React$useContext9 = useContext(PickerContext),
-    emojiVariationPickerState = _React$useContext9.emojiVariationPickerState;
-  return emojiVariationPickerState;
-}
-function useSkinToneFanOpenState() {
-  var _React$useContext10 = useContext(PickerContext),
-    skinToneFanOpenState = _React$useContext10.skinToneFanOpenState;
-  return skinToneFanOpenState;
-}
-function useUpdateSuggested() {
-  var _React$useContext12 = useContext(PickerContext),
-    suggestedUpdateState = _React$useContext12.suggestedUpdateState;
-  var suggestedUpdated = suggestedUpdateState[0],
-    setsuggestedUpdate = suggestedUpdateState[1];
-  return [suggestedUpdated, function updateSuggested() {
-    setsuggestedUpdate(Date.now());
-  }];
 }
 
 function useIsSearchMode() {
@@ -17294,6 +17876,7 @@ function ElementRefContextProvider(_ref) {
   var PickerMainRef = useRef(null);
   var AnchoredEmojiRef = useRef(null);
   var BodyRef = useRef(null);
+  var EmojiListRef = useRef(null);
   var SearchInputRef = useRef(null);
   var SkinTonePickerRef = useRef(null);
   var CategoryNavigationRef = useRef(null);
@@ -17303,6 +17886,7 @@ function ElementRefContextProvider(_ref) {
     value: {
       AnchoredEmojiRef: AnchoredEmojiRef,
       BodyRef: BodyRef,
+      EmojiListRef: EmojiListRef,
       CategoryNavigationRef: CategoryNavigationRef,
       PickerMainRef: PickerMainRef,
       SearchInputRef: SearchInputRef,
@@ -17316,6 +17900,7 @@ var ElementRefContext = /*#__PURE__*/createContext({
   AnchoredEmojiRef: /*#__PURE__*/createRef(),
   BodyRef: /*#__PURE__*/createRef(),
   CategoryNavigationRef: /*#__PURE__*/createRef(),
+  EmojiListRef: /*#__PURE__*/createRef(),
   PickerMainRef: /*#__PURE__*/createRef(),
   SearchInputRef: /*#__PURE__*/createRef(),
   SkinTonePickerRef: /*#__PURE__*/createRef(),
@@ -17324,6 +17909,9 @@ var ElementRefContext = /*#__PURE__*/createContext({
 });
 function useElementRef() {
   return useContext(ElementRefContext);
+}
+function useEmojiListRef() {
+  return useElementRef()['EmojiListRef'];
 }
 function usePickerMainRef() {
   return useElementRef()['PickerMainRef'];
@@ -17368,7 +17956,7 @@ function scrollTo(root, top) {
     return;
   }
   requestAnimationFrame(function () {
-    $eprBody.scrollTop = top + 1;
+    $eprBody.scrollTop = top;
   });
 }
 function scrollBy(root, by) {
@@ -17461,38 +18049,67 @@ function visibleEmojiOneRowUp(element) {
   }
   var categoryContent = closestCategoryContent(element);
   var category = closestCategory(categoryContent);
-  var indexInRow = elementIndexInRow(categoryContent, element);
-  var row = rowNumber(categoryContent, element);
   var countInRow = elementCountInRow(categoryContent, element);
-  if (row === 0) {
-    var prevVisibleCategory = prevCategory(category);
-    if (!prevVisibleCategory) {
-      return null;
-    }
-    return getElementInRow(allVisibleEmojis(prevVisibleCategory), -1,
-    // last row
-    countInRow, indexInRow);
+  var emojisInCurrentCategory = allVisibleEmojis(category);
+  var currentEmojiIndex = emojisInCurrentCategory.indexOf(element);
+  var indexInRow = currentEmojiIndex % countInRow;
+  if (currentEmojiIndex === -1) {
+    return null;
   }
-  return getElementInPrevRow(allVisibleEmojis(categoryContent), row, countInRow, indexInRow);
+  if (emojisInCurrentCategory[currentEmojiIndex - countInRow]) {
+    return emojisInCurrentCategory[currentEmojiIndex - countInRow];
+  }
+  var prevVisibleCategory = prevCategory(category);
+  if (!prevVisibleCategory) {
+    return null;
+  }
+  var allPrevEmojis = allVisibleEmojis(prevVisibleCategory);
+  // if there is an emoji in the same index of `indexInRow` in the previous category, return it
+  // for this we need to find the last emoji in the previous category that shares the same indexInRow
+  // this is by using the % operator to find the last emoji that matches
+  var lastIndexInRow = allPrevEmojis.length % countInRow - 1;
+  if (indexInRow > lastIndexInRow) {
+    return allPrevEmojis.at(-1);
+  }
+  // otherwise, return the last emoji that shares the same indexInRow
+  for (var i = allPrevEmojis.length - 1; i >= 0; i--) {
+    if (i % countInRow === indexInRow) {
+      return allPrevEmojis[i];
+    }
+  }
+  return allPrevEmojis.at(-1);
 }
 function visibleEmojiOneRowDown(element) {
+  var _emojisInNextCategory;
   if (!element) {
     return null;
   }
   var categoryContent = closestCategoryContent(element);
   var category = closestCategory(categoryContent);
-  var indexInRow = elementIndexInRow(categoryContent, element);
-  var row = rowNumber(categoryContent, element);
   var countInRow = elementCountInRow(categoryContent, element);
-  if (!hasNextRow(categoryContent, element)) {
-    var nextVisibleCategory = nextCategory(category);
-    if (!nextVisibleCategory) {
-      return null;
-    }
-    return getElementInRow(allVisibleEmojis(nextVisibleCategory), 0, countInRow, indexInRow);
+  var emojisInCurrentCategory = allVisibleEmojis(category);
+  var currentEmojiIndex = emojisInCurrentCategory.indexOf(element);
+  if (currentEmojiIndex === -1) {
+    return null;
   }
-  var itemInNextRow = getElementInNextRow(allVisibleEmojis(categoryContent), row, countInRow, indexInRow);
-  return itemInNextRow;
+  // the remainder until the end of the row
+  var remainder = countInRow - currentEmojiIndex % countInRow - 1;
+  var firstInNextRow = currentEmojiIndex + remainder + 1;
+  if (emojisInCurrentCategory[firstInNextRow]) {
+    // if we have a next row, search in the next row for the last available emoji
+    for (var p = currentEmojiIndex + countInRow; p % countInRow >= 0; p--) {
+      if (emojisInCurrentCategory[p]) {
+        return emojisInCurrentCategory[p];
+      }
+    }
+  }
+  var indexInRow = currentEmojiIndex % countInRow;
+  var nextVisibleCategory = nextCategory(category);
+  var emojisInNextCategory = allVisibleEmojis(nextVisibleCategory);
+  if (emojisInNextCategory[indexInRow]) {
+    return emojisInNextCategory[indexInRow];
+  }
+  return (_emojisInNextCategory = emojisInNextCategory.at(0)) != null ? _emojisInNextCategory : null;
 }
 
 function useCloseAllOpenToggles() {
@@ -18092,22 +18709,44 @@ function hasModifier(event) {
   return metaKey || ctrlKey || altKey;
 }
 
-function preloadEmoji(getEmojiUrl, emoji, emojiStyle) {
+// eslint-disable-next-line max-params
+function preloadEmojiIfNeeded(emoji, emojiStyles, scrollTop, clientHeight, topOffset, style, dimensions, getEmojiUrl) {
   if (!emoji) {
     return;
   }
-  if (emojiStyle === EmojiStyle.NATIVE) {
+  if (emojiStyles === EmojiStyle.NATIVE) {
     return;
   }
   var unified = emojiUnified(emoji);
   if (preloadedEmojs.has(unified)) {
     return;
   }
-  emojiVariations(emoji).forEach(function (variation) {
+  // preload only if the emoji is a few rows below the viewport
+  if (!style || !dimensions) {
+    return;
+  }
+  setTimeout(function () {
+    var emojiTop = topOffset + style.top;
+    var viewportBottom = scrollTop + clientHeight;
+    var isJustBelowViewport = emojiTop >= viewportBottom && emojiTop < viewportBottom + dimensions.emojiSize * 2;
+    if (isJustBelowViewport) {
+      preloadEmoji(getEmojiUrl, emoji, emojiStyles);
+    }
+  });
+}
+function preloadEmoji(getEmojiUrl, emoji, emojiStyle) {
+  if (!emoji) {
+    return;
+  }
+  var unified = emojiUnified(emoji);
+  if (preloadedEmojs.has(unified)) {
+    return;
+  }
+  preloadedEmojs.add(unified);
+  emojiVariations(emoji).concat(unified).forEach(function (variation) {
     var emojiUrl = getEmojiUrl(variation, emojiStyle);
     preloadImage(emojiUrl);
   });
-  preloadedEmojs.add(unified);
 }
 var preloadedEmojs = /*#__PURE__*/new Set();
 function preloadImage(url) {
@@ -18191,7 +18830,9 @@ var DarkTheme = {
   '--epr-search-input-bg-color-active': 'var(--epr-dark-search-input-bg-color-active)',
   '--epr-emoji-variation-indicator-color': 'var(--epr-dark-emoji-variation-indicator-color)',
   '--epr-category-icon-active-color': 'var(--epr-dark-category-icon-active-color)',
-  '--epr-skin-tone-picker-menu-color': 'var(--epr-dark-skin-tone-picker-menu-color)'
+  '--epr-skin-tone-picker-menu-color': 'var(--epr-dark-skin-tone-picker-menu-color)',
+  '--epr-skin-tone-outer-border-color': 'var(--epr-dark-skin-tone-outer-border-color)',
+  '--epr-skin-tone-inner-border-color': 'var(--epr-dark-skin-tone-inner-border-color)'
 };
 var styles = /*#__PURE__*/stylesheet.create({
   main: {
@@ -18205,8 +18846,7 @@ var styles = /*#__PURE__*/stylesheet.create({
     borderColor: 'var(--epr-picker-border-color)',
     backgroundColor: 'var(--epr-bg-color)',
     overflow: 'hidden',
-    transition: 'all 0.3s ease-in-out, background-color 0.1s ease-in-out',
-    // @ts-expect-error - need to work on this
+    transition: 'height 0.3s ease-in-out, background-color 0.1s ease-in-out',
     '*': {
       boxSizing: 'border-box',
       fontFamily: 'sans-serif'
@@ -18215,8 +18855,8 @@ var styles = /*#__PURE__*/stylesheet.create({
   baseVariables: {
     '--': {
       '--epr-highlight-color': '#007aeb',
-      '--epr-hover-bg-color': '#f1f8ff',
-      '--epr-hover-bg-color-reduced-opacity': '#f1f8ff80',
+      '--epr-hover-bg-color': '#e5f0fa',
+      '--epr-hover-bg-color-reduced-opacity': '#e5f0fa80',
       '--epr-focus-bg-color': '#e0f0ff',
       '--epr-text-color': '#858585',
       '--epr-search-input-bg-color': '#f6f6f6',
@@ -18225,10 +18865,11 @@ var styles = /*#__PURE__*/stylesheet.create({
       '--epr-reactions-bg-color': '#ffffff90',
       '--epr-category-icon-active-color': '#6aa8de',
       '--epr-skin-tone-picker-menu-color': '#ffffff95',
+      '--epr-skin-tone-outer-border-color': '#555555',
+      '--epr-skin-tone-inner-border-color': 'var(--epr-bg-color)',
       '--epr-horizontal-padding': '10px',
       '--epr-picker-border-radius': '8px',
       /* Header */
-      '--epr-search-border-color': 'var(--epr-highlight-color)',
       '--epr-header-padding': '15px var(--epr-horizontal-padding)',
       /* Skin Tone Picker */
       '--epr-active-skin-tone-indicator-border-color': 'var(--epr-highlight-color)',
@@ -18241,6 +18882,8 @@ var styles = /*#__PURE__*/stylesheet.create({
       '--epr-search-input-text-color': 'var(--epr-text-color)',
       '--epr-search-input-placeholder-color': 'var(--epr-text-color)',
       '--epr-search-bar-inner-padding': 'var(--epr-horizontal-padding)',
+      '--epr-search-border-color': 'var(--epr-search-input-bg-color)',
+      '--epr-search-border-color-active': 'var(--epr-highlight-color)',
       /*  Category Navigation */
       '--epr-category-navigation-button-size': '30px',
       /* Variation Picker */
@@ -18288,7 +18931,9 @@ var styles = /*#__PURE__*/stylesheet.create({
       '--epr-dark-search-input-bg-color-active': 'var(--epr-dark)',
       '--epr-dark-emoji-variation-indicator-color': '#444',
       '--epr-dark-category-icon-active-color': '#3271b7',
-      '--epr-dark-skin-tone-picker-menu-color': '#22222295'
+      '--epr-dark-skin-tone-picker-menu-color': '#22222295',
+      '--epr-dark-skin-tone-outer-border-color': 'var(--epr-dark-picker-border-color)',
+      '--epr-dark-skin-tone-inner-border-color': '#00000000'
     }
   },
   autoThemeDark: {
@@ -18306,6 +18951,7 @@ var styles = /*#__PURE__*/stylesheet.create({
     height: '50px',
     display: 'inline-flex',
     backgroundColor: 'var(--epr-reactions-bg-color)',
+    // @ts-ignore - backdropFilter is not recognized.
     backdropFilter: 'blur(8px)',
     '--': {
       '--epr-picker-border-radius': '50px'
@@ -18321,88 +18967,45 @@ function elementCountInRow(parent, element) {
   var elementWidth = element.getBoundingClientRect().width;
   return Math.floor(parentWidth / elementWidth);
 }
-function elementIndexInRow(parent, element) {
-  if (!parent || !element) {
-    return 0;
+function firstVisibleElementInContainer(parent, elements, maxVisibilityDiffThreshold) {
+  if (maxVisibilityDiffThreshold === void 0) {
+    maxVisibilityDiffThreshold = 0;
   }
-  var elementWidth = element.getBoundingClientRect().width;
-  var elementLeft = element.getBoundingClientRect().left;
-  var parentLeft = parent.getBoundingClientRect().left;
-  return Math.floor((elementLeft - parentLeft) / elementWidth);
-}
-function rowNumber(parent, element) {
-  if (!parent || !element) {
-    return 0;
-  }
-  var elementHeight = element.getBoundingClientRect().height;
-  var elementTop = element.getBoundingClientRect().top;
-  var parentTop = parent.getBoundingClientRect().top;
-  return Math.round((elementTop - parentTop) / elementHeight);
-}
-function hasNextRow(parent, element) {
-  if (!parent || !element) {
-    return false;
-  }
-  var elementHeight = element.getBoundingClientRect().height;
-  var elementTop = element.getBoundingClientRect().top;
-  var parentTop = parent.getBoundingClientRect().top;
-  var parentHeight = parent.getBoundingClientRect().height;
-  return Math.round(elementTop - parentTop + elementHeight) < parentHeight;
-}
-function getRowElements(elements, row, elementsInRow) {
-  if (row === -1) {
-    var lastRow = Math.floor((elements.length - 1) / elementsInRow);
-    var firstElementIndex = lastRow * elementsInRow;
-    var lastElementIndex = elements.length - 1;
-    return elements.slice(firstElementIndex, lastElementIndex + 1);
-  }
-  return elements.slice(row * elementsInRow, (row + 1) * elementsInRow);
-}
-function getNextRowElements(allElements, currentRow, elementsInRow) {
-  var nextRow = currentRow + 1;
-  if (nextRow * elementsInRow > allElements.length) {
-    return [];
-  }
-  return getRowElements(allElements, nextRow, elementsInRow);
-}
-function getElementInRow(elements, row, elementsInRow, indexInRow) {
-  var rowElements = getRowElements(elements, row, elementsInRow);
-  // get element, default to last
-  return rowElements[indexInRow] || rowElements[rowElements.length - 1] || null;
-}
-function getElementInNextRow(allElements, currentRow, elementsInRow, index) {
-  var nextRowElements = getNextRowElements(allElements, currentRow, elementsInRow);
-  // return item in index, or last item in row
-  return nextRowElements[index] || nextRowElements[nextRowElements.length - 1] || null;
-}
-function getElementInPrevRow(allElements, currentRow, elementsInRow, index) {
-  var prevRowElements = getRowElements(allElements, currentRow - 1, elementsInRow);
-  // default to last
-  return prevRowElements[index] || prevRowElements[prevRowElements.length - 1] || null;
-}
-function firstVisibleElementInContainer(parent, elements) {
   if (!parent || !elements.length) {
     return null;
   }
   var parentTop = parent.getBoundingClientRect().top;
   var parentBottom = parent.getBoundingClientRect().bottom;
-  var parentTopWithLabel = parentTop + getLabelHight(parent);
+  var parentTopWithLabel = parentTop + getLabelHeight(parent);
   var visibleElements = elements.find(function (element) {
     var elementTop = element.getBoundingClientRect().top;
     var elementBottom = element.getBoundingClientRect().bottom;
-    if (elementTop < parentTopWithLabel) {
+    var maxVisibilityDiffPixels = element.clientHeight * maxVisibilityDiffThreshold;
+    var elementTopWithAllowedDiff = elementTop + maxVisibilityDiffPixels;
+    var elementBottomWithAllowedDiff = elementBottom - maxVisibilityDiffPixels;
+    if (elementTopWithAllowedDiff < parentTopWithLabel) {
       return false;
     }
-    return elementTop >= parentTop && elementTop <= parentBottom || elementBottom >= parentTop && elementBottom <= parentBottom;
+    return elementTopWithAllowedDiff >= parentTop && elementTopWithAllowedDiff <= parentBottom || elementBottomWithAllowedDiff >= parentTop && elementBottomWithAllowedDiff <= parentBottom;
   });
   return visibleElements || null;
 }
 function hasNextElementSibling(element) {
   return !!element.nextElementSibling;
 }
-function getLabelHight(parentNode) {
-  var _parentNode$querySele, _parentNode$querySele2;
-  return (_parentNode$querySele = (_parentNode$querySele2 = parentNode.querySelector(asSelectors(ClassNames.label))) == null ? void 0 : _parentNode$querySele2.getBoundingClientRect().height) != null ? _parentNode$querySele : DEFAULT_LABEL_HEIGHT /* default */;
+function getLabelHeight(parentNode) {
+  if (!parentNode) {
+    return DEFAULT_LABEL_HEIGHT;
+  }
+  var label = parentNode.querySelector(asSelectors(ClassNames.label));
+  if (label) {
+    var height = label.getBoundingClientRect().height;
+    if (height > 0) {
+      return height;
+    }
+  }
+  // fallback to default
+  return DEFAULT_LABEL_HEIGHT;
 }
 
 var EmojiButtonSelector = "button" + /*#__PURE__*/asSelectors(ClassNames.emoji);
@@ -18568,7 +19171,7 @@ function firstVisibleEmoji(parent) {
     return null;
   }
   var allEmojis = allVisibleEmojis(parent);
-  return firstVisibleElementInContainer(parent, allEmojis);
+  return firstVisibleElementInContainer(parent, allEmojis, 0.1);
 }
 function prevCategory(element) {
   var category = closestCategory(element);
@@ -18615,56 +19218,6 @@ function parseNativeEmoji(unified) {
   return unified.split('-').map(function (hex) {
     return String.fromCodePoint(parseInt(hex, 16));
   }).join('');
-}
-
-var SUGGESTED_LS_KEY = 'epr_suggested';
-function getSuggested(mode) {
-  try {
-    var _window, _window$localStorage$, _window2;
-    if (!((_window = window) != null && _window.localStorage)) {
-      return [];
-    }
-    var recent = JSON.parse((_window$localStorage$ = (_window2 = window) == null ? void 0 : _window2.localStorage.getItem(SUGGESTED_LS_KEY)) != null ? _window$localStorage$ : '[]');
-    if (mode === SuggestionMode.FREQUENT) {
-      return recent.sort(function (a, b) {
-        return b.count - a.count;
-      });
-    }
-    return recent;
-  } catch (_unused) {
-    return [];
-  }
-}
-function setSuggested(emoji, skinTone) {
-  var recent = getSuggested();
-  var unified = emojiUnified(emoji, skinTone);
-  var originalUnified = emojiUnified(emoji);
-  var existing = recent.find(function (_ref) {
-    var u = _ref.unified;
-    return u === unified;
-  });
-  var nextList;
-  if (existing) {
-    nextList = [existing].concat(recent.filter(function (i) {
-      return i !== existing;
-    }));
-  } else {
-    existing = {
-      unified: unified,
-      original: originalUnified,
-      count: 0
-    };
-    nextList = [existing].concat(recent);
-  }
-  existing.count++;
-  nextList.length = Math.min(nextList.length, 14);
-  try {
-    var _window3;
-    (_window3 = window) == null || _window3.localStorage.setItem(SUGGESTED_LS_KEY, JSON.stringify(nextList));
-    // Prevents the change from being seen immediately.
-  } catch (_unused2) {
-    // ignore
-  }
 }
 
 function isCustomCategory(category) {
@@ -18818,7 +19371,7 @@ var styles$1 = /*#__PURE__*/stylesheet.create({
 });
 
 function ClickableEmojiButton(_ref) {
-  var _emojiNames$, _cx;
+  var _cx;
   var emojiNames = _ref.emojiNames,
     unified = _ref.unified,
     hidden = _ref.hidden,
@@ -18829,15 +19382,22 @@ function ClickableEmojiButton(_ref) {
     children = _ref.children,
     className = _ref.className,
     _ref$noBackground = _ref.noBackground,
-    noBackground = _ref$noBackground === void 0 ? false : _ref$noBackground;
-  var ariaLabel = emojiNames[0].match('flag-') ? (_emojiNames$ = emojiNames[1]) != null ? _emojiNames$ : emojiNames[0] : emojiNames[0];
-  var skinToneName = activeVariationNameFromUnified(unified, !showVariations && hasVariations);
-  if (skinToneName) ariaLabel = ariaLabel + " " + skinToneName + " skin tone";
+    noBackground = _ref$noBackground === void 0 ? false : _ref$noBackground,
+    style = _ref.style;
+  function getAriaLabel() {
+    var ariaLabel = emojiNames.some(function (name) {
+      return name.match('flag-');
+    }) ? emojiNames[emojiNames.length - 1] : emojiNames[0];
+    var skinToneName = activeVariationNameFromUnified(unified, !showVariations && hasVariations);
+    if (skinToneName) ariaLabel = ariaLabel + " " + skinToneName + " skin tone";
+    return ariaLabel;
+  }
   return createElement(Button, {
     className: cx(styles$2.emoji, hidden && commonStyles.hidden, hiddenOnSearch && commonInteractionStyles.hiddenOnSearch, (_cx = {}, _cx[ClassNames.visible] = !hidden && !hiddenOnSearch, _cx), !!(hasVariations && showVariations) && styles$2.hasVariations, noBackground && styles$2.noBackground, className),
     "data-unified": unified,
-    "aria-label": ariaLabel,
-    "data-full-name": emojiNames
+    "aria-label": getAriaLabel(),
+    "data-full-name": emojiNames,
+    style: style
   }, children);
 }
 var styles$2 = /*#__PURE__*/stylesheet.create({
@@ -19023,7 +19583,8 @@ function ClickableEmoji(_ref) {
     getEmojiUrl = _ref.getEmojiUrl,
     className = _ref.className,
     _ref$noBackground = _ref.noBackground,
-    noBackground = _ref$noBackground === void 0 ? false : _ref$noBackground;
+    noBackground = _ref$noBackground === void 0 ? false : _ref$noBackground,
+    style = _ref.style;
   var hasVariations = emojiHasVariations(emoji);
   return createElement(ClickableEmojiButton, {
     hasVariations: hasVariations,
@@ -19032,7 +19593,8 @@ function ClickableEmoji(_ref) {
     hiddenOnSearch: hiddenOnSearch,
     emojiNames: emojiNames(emoji),
     unified: unified,
-    noBackground: noBackground
+    noBackground: noBackground,
+    style: style
   }, createElement(ViewOnlyEmoji, {
     unified: unified,
     emoji: emoji,
@@ -19059,7 +19621,7 @@ function BtnPlus() {
     }
   });
 }
-var styles$5 = /*#__PURE__*/stylesheet.create( /*#__PURE__*/_extends({
+var styles$5 = /*#__PURE__*/stylesheet.create(/*#__PURE__*/_extends({
   plusSign: {
     fontSize: '20px',
     padding: '17px',
@@ -19086,7 +19648,6 @@ var styles$5 = /*#__PURE__*/stylesheet.create( /*#__PURE__*/_extends({
     ':hover': {
       color: 'var(--epr-highlight-color)',
       backgroundColor: 'var(--epr-hover-bg-color-reduced-opacity)',
-      // @ts-ignore
       ':after': {
         backgroundPositionY: '-20px'
       }
@@ -19094,7 +19655,6 @@ var styles$5 = /*#__PURE__*/stylesheet.create( /*#__PURE__*/_extends({
     ':focus': {
       color: 'var(--epr-highlight-color)',
       backgroundColor: 'var(--epr-hover-bg-color-reduced-opacity)',
-      // @ts-ignore
       ':after': {
         backgroundPositionY: '-40px'
       }
@@ -19117,6 +19677,7 @@ function Reactions() {
   useMouseDownHandlers(ReactionsRef, MOUSE_EVENT_SOURCE.REACTIONS);
   var emojiStyle = useEmojiStyleConfig();
   var allowExpandReactions = useAllowExpandReactions();
+  var getEmojiUrl = useGetEmojiUrlConfig();
   if (!reactionsOpen) {
     return null;
   }
@@ -19132,7 +19693,8 @@ function Reactions() {
       unified: reaction,
       showVariations: false,
       className: cx(styles$6.emojiButton),
-      noBackground: true
+      noBackground: true,
+      getEmojiUrl: getEmojiUrl
     }));
   }), allowExpandReactions ? createElement("li", null, createElement(BtnPlus, null)) : null);
 }
@@ -19162,6 +19724,9 @@ var styles$6 = /*#__PURE__*/stylesheet.create({
 
 function useOnScroll(BodyRef) {
   var closeAllOpenToggles = useCloseAllOpenToggles();
+  var _useState = useState(0),
+    scrollTop = _useState[0],
+    setScrollTop = _useState[1];
   useEffect(function () {
     var bodyRef = BodyRef.current;
     if (!bodyRef) {
@@ -19171,12 +19736,101 @@ function useOnScroll(BodyRef) {
       passive: true
     });
     function onScroll() {
+      var _bodyRef$scrollTop;
+      setScrollTop((_bodyRef$scrollTop = bodyRef == null ? void 0 : bodyRef.scrollTop) != null ? _bodyRef$scrollTop : 0);
       closeAllOpenToggles();
     }
     return function () {
       bodyRef == null || bodyRef.removeEventListener('scroll', onScroll);
     };
   }, [BodyRef, closeAllOpenToggles]);
+  return scrollTop;
+}
+
+function shouldVirtualize(_ref) {
+  var scrollTop = _ref.scrollTop,
+    clientHeight = _ref.clientHeight,
+    topOffset = _ref.topOffset,
+    style = _ref.style,
+    dimensions = _ref.dimensions;
+  if (!style || !dimensions) {
+    return false;
+  }
+  var emojiTop = topOffset + style.top;
+  var emojiBottom = emojiTop + dimensions.emojiSize;
+  var isVisible = emojiBottom + dimensions.emojiSize * 2 >= scrollTop && emojiTop <= scrollTop + clientHeight + dimensions.emojiSize;
+  return !isVisible;
+}
+function getEmojiPositionStyle(dimensions, index) {
+  return dimensions ? {
+    top: Math.floor(index / dimensions.emojisPerRow) * dimensions.emojiSize,
+    left: index % dimensions.emojisPerRow * dimensions.emojiSize
+  } : undefined;
+}
+
+var EMOJI_SIZE_DEFAULT = 32;
+function useCategoryHeight(emojiCount) {
+  var EmojiListRef = useEmojiListRef();
+  var _useReactionsModeStat = useReactionsModeState(),
+    isReactionsMode = _useReactionsModeStat[0];
+  var PickerMainRef = usePickerMainRef();
+  var emojiSizeRef = useRef();
+  var _useVisibleCategories = useVisibleCategoriesState(),
+    visibleCategories = _useVisibleCategories[0];
+  var _React$useState = useState(),
+    dimensions = _React$useState[0],
+    setDimensions = _React$useState[1];
+  // Helper to compute and store dimensions based on current DOM
+  var computeAndSetDimensions = useCallback(function () {
+    var _ref;
+    var listEl = EmojiListRef.current;
+    if (!listEl) return;
+    var emojiElement = listEl.querySelector(EmojiButtonSelector);
+    var measured = emojiElement == null ? void 0 : emojiElement.clientHeight;
+    var emojiSize = (_ref = measured != null ? measured : emojiSizeRef.current) != null ? _ref : EMOJI_SIZE_DEFAULT;
+    emojiSizeRef.current = emojiSize;
+    var pickerWidth = listEl.clientWidth;
+    if (pickerWidth === 0 || emojiSize === 0) return;
+    var emojisPerRow = Math.max(1, Math.floor(pickerWidth / emojiSize));
+    var rowCount = Math.ceil(emojiCount / emojisPerRow);
+    var categoryHeight = rowCount * emojiSize;
+    setDimensions({
+      categoryHeight: categoryHeight,
+      emojisPerRow: emojisPerRow,
+      emojiSize: emojiSize
+    });
+  }, [EmojiListRef, emojiCount]);
+  // Recompute on data-count changes and when reactions mode toggles
+  useEffect(function () {
+    computeAndSetDimensions();
+  }, [emojiCount, isReactionsMode, computeAndSetDimensions, visibleCategories.length]);
+  // Listen to transitionend on the picker root (where height transition occurs)
+  useEffect(function () {
+    var rootEl = PickerMainRef.current;
+    if (!rootEl) return;
+    var handler = function handler(e) {
+      var te = e;
+      var prop = te.propertyName;
+      if (prop === 'width' || prop === 'max-width' || prop === 'min-width' || prop === 'height' || prop === 'max-height' || prop === 'min-height') {
+        if (typeof queueMicrotask === 'function') {
+          queueMicrotask(function () {
+            return computeAndSetDimensions();
+          });
+        } else {
+          requestAnimationFrame(function () {
+            return computeAndSetDimensions();
+          });
+        }
+      }
+    };
+    rootEl.addEventListener('transitionend', handler, {
+      passive: true
+    });
+    return function () {
+      rootEl.removeEventListener('transitionend', handler);
+    };
+  }, [PickerMainRef, computeAndSetDimensions]);
+  return dimensions;
 }
 
 function useIsEmojiHidden() {
@@ -19195,11 +19849,83 @@ function useIsEmojiHidden() {
   };
 }
 
+function useEmojiVirtualization(_ref) {
+  var categoryEmojis = _ref.categoryEmojis,
+    topOffset = _ref.topOffset,
+    onHeightReady = _ref.onHeightReady,
+    scrollTop = _ref.scrollTop,
+    isCategoryVisible = _ref.isCategoryVisible;
+  var isEmojiHidden = useIsEmojiHidden();
+  var lazyLoadEmojis = useLazyLoadEmojisConfig();
+  var emojiStyle = useEmojiStyleConfig();
+  var _useActiveSkinToneSta = useActiveSkinToneState(),
+    activeSkinTone = _useActiveSkinToneSta[0];
+  var isEmojiDisallowed = useIsEmojiDisallowed();
+  var getEmojiUrl = useGetEmojiUrlConfig();
+  var showVariations = !useSkinTonesDisabledConfig();
+  var BodyRef = useBodyRef();
+  var virtualizedCounter = 0;
+  var emojisToPush = categoryEmojis.filter(function (emoji) {
+    var isDisallowed = isEmojiDisallowed(emoji);
+    var _isEmojiHidden = isEmojiHidden(emoji),
+      failedToLoad = _isEmojiHidden.failedToLoad,
+      filteredOut = _isEmojiHidden.filteredOut,
+      hidden = _isEmojiHidden.hidden;
+    return !failedToLoad && !filteredOut && !hidden && !isDisallowed;
+  });
+  var dimensions = useCategoryHeight(emojisToPush.length);
+  useEffect(function () {
+    if (dimensions) {
+      onHeightReady(dimensions.categoryHeight);
+    }
+  }, [dimensions, onHeightReady, emojisToPush.length]);
+  var emojis = emojisToPush.reduce(function (accumulator, emoji, index) {
+    var _BodyRef$current$clie, _BodyRef$current;
+    var unified = emojiUnified(emoji, activeSkinTone);
+    var style = getEmojiPositionStyle(dimensions, index);
+    if (dimensions && BodyRef.current && shouldVirtualize({
+      scrollTop: scrollTop,
+      clientHeight: (_BodyRef$current$clie = (_BodyRef$current = BodyRef.current) == null ? void 0 : _BodyRef$current.clientHeight) != null ? _BodyRef$current$clie : 0,
+      topOffset: topOffset,
+      style: style,
+      dimensions: dimensions
+    })) {
+      var _BodyRef$current$clie2, _BodyRef$current2;
+      virtualizedCounter++;
+      preloadEmojiIfNeeded(emoji, emojiStyle, scrollTop, (_BodyRef$current$clie2 = (_BodyRef$current2 = BodyRef.current) == null ? void 0 : _BodyRef$current2.clientHeight) != null ? _BodyRef$current$clie2 : 0, topOffset, style, dimensions, getEmojiUrl);
+      return accumulator;
+    }
+    if (!isCategoryVisible) {
+      virtualizedCounter++;
+      return accumulator;
+    }
+    accumulator.push(createElement(ClickableEmoji, {
+      showVariations: showVariations,
+      key: unified,
+      emoji: emoji,
+      unified: unified,
+      emojiStyle: emojiStyle,
+      lazyLoad: lazyLoadEmojis,
+      getEmojiUrl: getEmojiUrl,
+      style: _extends({}, style, {
+        position: 'absolute'
+      })
+    }));
+    return accumulator;
+  }, []);
+  return {
+    virtualizedCounter: virtualizedCounter,
+    emojis: emojis,
+    dimensions: dimensions
+  };
+}
+
 function EmojiCategory(_ref) {
   var categoryConfig = _ref.categoryConfig,
     children = _ref.children,
     hidden = _ref.hidden,
-    hiddenOnSearch = _ref.hiddenOnSearch;
+    hiddenOnSearch = _ref.hiddenOnSearch,
+    height = _ref.height;
   var category = categoryFromCategoryConfig(categoryConfig);
   var categoryName = categoryNameFromCategoryConfig(categoryConfig);
   return createElement("li", {
@@ -19209,15 +19935,16 @@ function EmojiCategory(_ref) {
   }, createElement("h2", {
     className: cx(styles$7.label)
   }, categoryName), createElement("div", {
-    className: cx(styles$7.categoryContent)
+    className: cx(styles$7.categoryContent),
+    style: {
+      height: height
+    }
   }, children));
 }
 var styles$7 = /*#__PURE__*/stylesheet.create({
   category: {
     '.': ClassNames.category,
-    ':not(:has(.epr-visible))': {
-      display: 'none'
-    }
+    position: 'relative'
   },
   categoryContent: {
     '.': ClassNames.categoryContent,
@@ -19231,6 +19958,7 @@ var styles$7 = /*#__PURE__*/stylesheet.create({
   label: {
     '.': ClassNames.label,
     alignItems: 'center',
+    // @ts-ignore - backdropFilter is not recognized.
     backdropFilter: 'blur(3px)',
     backgroundColor: 'var(--epr-category-label-bg-color)',
     color: 'var(--epr-category-label-text-color)',
@@ -19248,126 +19976,68 @@ var styles$7 = /*#__PURE__*/stylesheet.create({
   }
 });
 
-var isEverMounted = false;
-function useIsEverMounted() {
-  var _React$useState = useState(isEverMounted),
-    isMounted = _React$useState[0],
-    setIsMounted = _React$useState[1];
-  useEffect(function () {
-    setIsMounted(true);
-    isEverMounted = true;
-  }, []);
-  return isMounted || isEverMounted;
-}
-
-function Suggested(_ref) {
-  var categoryConfig = _ref.categoryConfig;
-  var _useUpdateSuggested = useUpdateSuggested(),
-    suggestedUpdated = _useUpdateSuggested[0];
-  var isMounted = useIsEverMounted();
-  var suggestedEmojisModeConfig = useSuggestedEmojisModeConfig();
-  var getEmojiUrl = useGetEmojiUrlConfig();
-  var suggested = useMemo(function () {
-    var _getSuggested;
-    return (_getSuggested = getSuggested(suggestedEmojisModeConfig)) != null ? _getSuggested : [];
-  },
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  [suggestedUpdated, suggestedEmojisModeConfig]);
-  var emojiStyle = useEmojiStyleConfig();
-  if (!isMounted) {
-    return null;
-  }
-  return createElement(EmojiCategory, {
-    categoryConfig: categoryConfig,
-    hiddenOnSearch: true,
-    hidden: suggested.length === 0
-  }, suggested.map(function (suggestedItem) {
-    var emoji = emojiByUnified(suggestedItem.original);
-    if (!emoji) {
-      return null;
-    }
-    return createElement(ClickableEmoji, {
-      showVariations: false,
-      unified: suggestedItem.unified,
-      emojiStyle: emojiStyle,
-      emoji: emoji,
-      key: suggestedItem.unified,
-      getEmojiUrl: getEmojiUrl
-    });
-  }));
-}
-
-function EmojiList() {
+function EmojiList(_ref) {
+  var scrollTop = _ref.scrollTop;
   var categories = useCategoriesConfig();
-  var renderdCategoriesCountRef = useRef(0);
+  var _React$useState = useState({}),
+    categoryHeights = _React$useState[0],
+    setCategoryHeights = _React$useState[1];
+  var EmojiListRef = useEmojiListRef();
+  var getEmojisByCategory = useGetEmojisByCategory();
+  var labelHeight = getLabelHeight(EmojiListRef.current);
+  var topOffset = 0;
   return createElement("ul", {
-    className: cx(styles$8.emojiList)
+    className: cx(styles$8.emojiList),
+    ref: EmojiListRef
   }, categories.map(function (categoryConfig) {
     var category = categoryFromCategoryConfig(categoryConfig);
-    if (category === Categories.SUGGESTED) {
-      return createElement(Suggested, {
-        key: category,
-        categoryConfig: categoryConfig
-      });
+    var currentOffset = topOffset;
+    var categoryHeight = categoryHeights[category];
+    if (categoryHeight) {
+      topOffset += categoryHeight + labelHeight;
     }
-    return createElement(RenderCategory, {
-      key: category,
-      category: category,
+    return createElement(Suspense, {
+      key: category
+    }, createElement(RenderCategory, {
+      categoryEmojis: getEmojisByCategory(category),
       categoryConfig: categoryConfig,
-      renderdCategoriesCountRef: renderdCategoriesCountRef
-    });
+      topOffset: currentOffset,
+      onHeightReady: function onHeightReady(height) {
+        if (categoryHeights[category] !== height) {
+          setCategoryHeights(function (prev) {
+            var _extends2;
+            return _extends({}, prev, (_extends2 = {}, _extends2[category] = height, _extends2));
+          });
+        }
+      },
+      scrollTop: scrollTop
+    }));
   }));
 }
-function RenderCategory(_ref) {
-  var category = _ref.category,
-    categoryConfig = _ref.categoryConfig,
-    renderdCategoriesCountRef = _ref.renderdCategoriesCountRef;
-  var isEmojiHidden = useIsEmojiHidden();
-  var lazyLoadEmojis = useLazyLoadEmojisConfig();
-  var emojiStyle = useEmojiStyleConfig();
-  var isPastInitialLoad = useIsPastInitialLoad();
-  var _useActiveSkinToneSta = useActiveSkinToneState(),
-    activeSkinTone = _useActiveSkinToneSta[0];
-  var isEmojiDisallowed = useIsEmojiDisallowed();
-  var getEmojiUrl = useGetEmojiUrlConfig();
-  var showVariations = !useSkinTonesDisabledConfig();
-  // Small trick to defer the rendering of all emoji categories until the first category is visible
-  // This way the user gets to actually see something and not wait for the whole picker to render.
-  var emojisToPush = !isPastInitialLoad && renderdCategoriesCountRef.current > 0 ? [] : emojisByCategory(category);
-  if (emojisToPush.length > 0) {
-    renderdCategoriesCountRef.current++;
-  }
-  var hiddenCounter = 0;
-  var emojis = emojisToPush.map(function (emoji) {
-    var unified = emojiUnified(emoji, activeSkinTone);
-    var _isEmojiHidden = isEmojiHidden(emoji),
-      failedToLoad = _isEmojiHidden.failedToLoad,
-      filteredOut = _isEmojiHidden.filteredOut,
-      hidden = _isEmojiHidden.hidden;
-    var isDisallowed = isEmojiDisallowed(emoji);
-    if (hidden || isDisallowed) {
-      hiddenCounter++;
-    }
-    if (isDisallowed) {
-      return null;
-    }
-    return createElement(ClickableEmoji, {
-      showVariations: showVariations,
-      key: unified,
-      emoji: emoji,
-      unified: unified,
-      hidden: failedToLoad,
-      hiddenOnSearch: filteredOut,
-      emojiStyle: emojiStyle,
-      lazyLoad: lazyLoadEmojis,
-      getEmojiUrl: getEmojiUrl
-    });
-  });
+function RenderCategory(_ref2) {
+  var categoryEmojis = _ref2.categoryEmojis,
+    categoryConfig = _ref2.categoryConfig,
+    topOffset = _ref2.topOffset,
+    onHeightReady = _ref2.onHeightReady,
+    scrollTop = _ref2.scrollTop;
+  var _useVisibleCategories = useVisibleCategoriesState(),
+    visibleCategories = _useVisibleCategories[0];
+  var _useEmojiVirtualizati = useEmojiVirtualization({
+      categoryEmojis: categoryEmojis,
+      topOffset: topOffset,
+      onHeightReady: onHeightReady,
+      scrollTop: scrollTop,
+      isCategoryVisible: visibleCategories.includes(categoryConfig.category)
+    }),
+    virtualizedCounter = _useEmojiVirtualizati.virtualizedCounter,
+    emojis = _useEmojiVirtualizati.emojis,
+    dimensions = _useEmojiVirtualizati.dimensions;
   return createElement(EmojiCategory, {
     categoryConfig: categoryConfig,
+    height: dimensions == null ? void 0 : dimensions.categoryHeight,
     // Indicates that there are no visible emojis
     // Hence, the category should be hidden
-    hidden: hiddenCounter === emojis.length
+    hidden: !emojis.length && virtualizedCounter === 0
   }, emojis);
 }
 var styles$8 = /*#__PURE__*/stylesheet.create({
@@ -19487,7 +20157,7 @@ function useVariationPickerTop(VariationPickerRef) {
     return emojiOffsetTop - height;
   }
 }
-var styles$9 = /*#__PURE__*/stylesheet.create( /*#__PURE__*/_extends({
+var styles$9 = /*#__PURE__*/stylesheet.create(/*#__PURE__*/_extends({
   variationPicker: {
     '.': ClassNames.variationPicker,
     position: 'absolute',
@@ -19546,13 +20216,15 @@ var styles$9 = /*#__PURE__*/stylesheet.create( /*#__PURE__*/_extends({
 
 function Body() {
   var BodyRef = useBodyRef();
-  useOnScroll(BodyRef);
+  var scrollTop = useOnScroll(BodyRef);
   useMouseDownHandlers(BodyRef, MOUSE_EVENT_SOURCE.PICKER);
   useOnMouseMove();
   return createElement("div", {
     className: cx(styles$a.body, commonInteractionStyles.hiddenOnReactions),
     ref: BodyRef
-  }, createElement(EmojiVariationPicker, null), createElement(EmojiList, null));
+  }, createElement(EmojiVariationPicker, null), createElement(EmojiList, {
+    scrollTop: scrollTop
+  }));
 }
 var styles$a = /*#__PURE__*/stylesheet.create({
   body: {
@@ -19735,7 +20407,6 @@ function BtnSkinToneVariation(_ref) {
     style: style,
     onClick: onClick,
     className: cx("epr-tone-" + skinToneVariation, styles$c.tone, !isOpen && styles$c.closedTone, isActive && styles$c.active),
-    tabIndex: isOpen ? 0 : -1,
     "aria-pressed": isActive,
     "aria-label": "Skin tone " + skinTonesNamed[skinToneVariation]
   });
@@ -19752,13 +20423,23 @@ var styles$c = /*#__PURE__*/stylesheet.create({
   },
   tone: {
     '.': 'epr-tone',
+    width: 'var(--epr-skin-tone-size)',
+    display: 'block',
+    cursor: 'pointer',
+    borderRadius: '4px',
+    height: 'var(--epr-skin-tone-size)',
+    position: 'absolute',
+    right: '0',
+    transition: 'transform 0.3s ease-in-out, opacity 0.35s ease-in-out',
+    zIndex: '0',
+    border: '1px solid var(--epr-skin-tone-outer-border-color)',
+    boxShadow: 'inset 0px 0px 0 1px var(--epr-skin-tone-inner-border-color)',
     ':hover': {
-      boxShadow: '0 0 0 3px var(--epr-active-skin-hover-color)'
+      boxShadow: '0 0 0 3px var(--epr-active-skin-hover-color), inset 0px 0px 0 1px var(--epr-skin-tone-inner-border-color)'
     },
     ':focus': {
       boxShadow: '0 0 0 3px var(--epr-focus-bg-color)'
     },
-    // @ts-ignore
     '&.epr-tone-neutral': {
       backgroundColor: '#ffd225'
     },
@@ -19807,6 +20488,7 @@ function SkinTonePicker(_ref) {
   var _useActiveSkinToneSta = useActiveSkinToneState(),
     activeSkinTone = _useActiveSkinToneSta[0],
     setActiveSkinTone = _useActiveSkinToneSta[1];
+  var onSkinToneChange = useOnSkinToneChangeConfig();
   var closeAllOpenToggles = useCloseAllOpenToggles();
   var focusSearchInput = useFocusSearchInput();
   if (isDisabled) {
@@ -19839,6 +20521,7 @@ function SkinTonePicker(_ref) {
       onClick: function onClick() {
         if (isOpen) {
           setActiveSkinTone(skinToneVariation);
+          onSkinToneChange(skinToneVariation);
           focusSearchInput();
         } else {
           setIsOpen(true);
@@ -19876,18 +20559,10 @@ var styles$d = /*#__PURE__*/stylesheet.create({
     boxShadow: '0px 0 7px var(--epr-picker-border-color)'
   },
   open: {
-    // @ts-ignore
+    // @ts-ignore - backdropFilter is not recognized.
     backdropFilter: 'blur(5px)',
     background: 'var(--epr-skin-tone-picker-menu-color)',
-    // @ts-ignore
-    '.epr-active:after': {
-      content: '',
-      position: 'absolute',
-      top: '-2px',
-      left: '-2px',
-      right: '-2px',
-      bottom: '-2px',
-      borderRadius: '5px',
+    '.epr-active': {
       border: '1px solid var(--epr-active-skin-tone-indicator-border-color)'
     }
   },
@@ -19895,31 +20570,20 @@ var styles$d = /*#__PURE__*/stylesheet.create({
     '.': 'epr-skin-tone-select',
     position: 'relative',
     width: 'var(--epr-skin-tone-size)',
-    height: 'var(--epr-skin-tone-size)',
-    // @ts-ignore
-    '> button': {
-      width: 'var(--epr-skin-tone-size)',
-      display: 'block',
-      cursor: 'pointer',
-      borderRadius: '4px',
-      height: 'var(--epr-skin-tone-size)',
-      position: 'absolute',
-      right: '0',
-      transition: 'transform 0.3s ease-in-out, opacity 0.35s ease-in-out',
-      zIndex: '0',
-      boxShadow: '0 0 0 0px var(--epr-active-skin-hover-color)'
-    }
+    height: 'var(--epr-skin-tone-size)'
   }
 });
 
 function Preview() {
   var previewConfig = usePreviewConfig();
   var isSkinToneInPreview = useIsSkinToneInPreview();
+  var _useReactionsModeStat = useReactionsModeState(),
+    reactionsOpen = _useReactionsModeStat[0];
   if (!previewConfig.showPreview) {
     return null;
   }
   return createElement(Flex, {
-    className: cx(styles$e.preview, commonInteractionStyles.hiddenOnReactions)
+    className: cx(styles$e.preview, commonInteractionStyles.hiddenOnReactions, reactionsOpen && styles$e.hideOnReactions)
   }, createElement(PreviewBody, null), createElement(Space, null), isSkinToneInPreview ? createElement(SkinTonePickerMenu, null) : null);
 }
 function PreviewBody() {
@@ -19978,6 +20642,10 @@ var styles$e = /*#__PURE__*/stylesheet.create({
   },
   emoji: {
     padding: '0'
+  },
+  hideOnReactions: {
+    opacity: '0',
+    transition: 'opacity 0.5s ease-in-out'
   }
 });
 
@@ -19986,7 +20654,9 @@ function categoryNameFromDom($category) {
   return (_$category$getAttribu = $category == null ? void 0 : $category.getAttribute('data-name')) != null ? _$category$getAttribu : null;
 }
 
-function useActiveCategoryScrollDetection(setActiveCategory) {
+function useActiveCategoryScrollDetection(_ref) {
+  var setActiveCategory = _ref.setActiveCategory,
+    setVisibleCategories = _ref.setVisibleCategories;
   var BodyRef = useBodyRef();
   useEffect(function () {
     var visibleCategories = new Map();
@@ -19998,9 +20668,19 @@ function useActiveCategoryScrollDetection(setActiveCategory) {
       for (var _iterator = _createForOfIteratorHelperLoose(entries), _step; !(_step = _iterator()).done;) {
         var entry = _step.value;
         var _id = categoryNameFromDom(entry.target);
+        if (!_id) {
+          continue;
+        }
         visibleCategories.set(_id, entry.intersectionRatio);
       }
       var ratios = Array.from(visibleCategories);
+      setVisibleCategories(ratios.filter(function (_ref2) {
+        var ratio = _ref2[1];
+        return ratio > 0;
+      }).map(function (_ref3) {
+        var id = _ref3[0];
+        return id;
+      }));
       var lastCategory = ratios[ratios.length - 1];
       if (lastCategory[1] == 1) {
         return setActiveCategory(lastCategory[0]);
@@ -20020,7 +20700,7 @@ function useActiveCategoryScrollDetection(setActiveCategory) {
     bodyRef == null || bodyRef.querySelectorAll(asSelectors(ClassNames.category)).forEach(function (el) {
       observer.observe(el);
     });
-  }, [BodyRef, setActiveCategory]);
+  }, [BodyRef, setActiveCategory, setVisibleCategories]);
 }
 
 function useScrollCategoryIntoView() {
@@ -20081,7 +20761,7 @@ var DarkInactivePosition = {
     }
   }
 };
-var styles$f = /*#__PURE__*/stylesheet.create( /*#__PURE__*/_extends({
+var styles$f = /*#__PURE__*/stylesheet.create(/*#__PURE__*/_extends({
   catBtn: {
     '.': 'epr-cat-btn',
     display: 'inline-block',
@@ -20103,7 +20783,6 @@ var styles$f = /*#__PURE__*/stylesheet.create( /*#__PURE__*/_extends({
       border: '2px solid var(--epr-category-icon-active-color)',
       borderRadius: '50%'
     },
-    // @ts-ignore
     '&.epr-icn-suggested': {
       backgroundPositionX: 'calc(var(--epr-category-navigation-button-size) * -8)'
     },
@@ -20144,8 +20823,13 @@ function CategoryNavigation() {
   var _useState = useState(null),
     activeCategory = _useState[0],
     setActiveCategory = _useState[1];
+  var _useVisibleCategories = useVisibleCategoriesState(),
+    setVisibleCategories = _useVisibleCategories[1];
   var scrollCategoryIntoView = useScrollCategoryIntoView();
-  useActiveCategoryScrollDetection(setActiveCategory);
+  useActiveCategoryScrollDetection({
+    setActiveCategory: setActiveCategory,
+    setVisibleCategories: setVisibleCategories
+  });
   var isSearchMode = useIsSearchMode();
   var categoriesConfig = useCategoriesConfig();
   var CategoryNavigationRef = useCategoryNavigationRef();
@@ -20170,8 +20854,10 @@ function CategoryNavigation() {
       allowNavigation: allowNavigation,
       categoryConfig: categoryConfig,
       onClick: function onClick() {
-        setActiveCategory(category);
         scrollCategoryIntoView(category);
+        setTimeout(function () {
+          setActiveCategory(category);
+        }, 10);
       }
     });
   }));
@@ -20220,7 +20906,7 @@ var HoverDark = {
     }
   }
 };
-var styles$h = /*#__PURE__*/stylesheet.create( /*#__PURE__*/_extends({
+var styles$h = /*#__PURE__*/stylesheet.create(/*#__PURE__*/_extends({
   btnClearSearch: {
     '.': 'epr-btn-clear-search',
     position: 'absolute',
@@ -20260,21 +20946,6 @@ var styles$h = /*#__PURE__*/stylesheet.create( /*#__PURE__*/_extends({
   backgroundPositionY: '-40px'
 }), /*#__PURE__*/darkMode('btnClearSearch', HoverDark)));
 
-var SCOPE = /*#__PURE__*/asSelectors(ClassNames.emojiPicker) + " " + /*#__PURE__*/asSelectors(ClassNames.emojiList);
-var EMOJI_BUTTON = /*#__PURE__*/['button', asSelectors(ClassNames.emoji)].join('');
-var CATEGORY = /*#__PURE__*/asSelectors(ClassNames.category);
-function CssSearch(_ref) {
-  var value = _ref.value;
-  if (!value) {
-    return null;
-  }
-  var q = genQuery(value);
-  return createElement("style", null, "\n    " + SCOPE + " " + EMOJI_BUTTON + " {\n      display: none;\n    }\n\n\n    " + SCOPE + " " + q + " {\n      display: flex;\n    }\n\n    " + SCOPE + " " + CATEGORY + ":not(:has(" + q + ")) {\n      display: none;\n    }\n  ");
-}
-function genQuery(value) {
-  return [EMOJI_BUTTON, '[data-full-name*="', getNormalizedSearchTerm(value), '"]'].join('');
-}
-
 var SVGMagnifier = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyNi4zLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyMHB4IiBoZWlnaHQ9IjQwcHgiIHZpZXdCb3g9IjAgMCAyMCA0MCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjAgNDAiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9IiM4Njg2ODYiIGQ9Ik0xMiw4LjgxYzAsMi4wOC0xLjY4LDMuNzYtMy43NiwzLjc2Yy0yLjA4LDAtMy43Ni0xLjY4LTMuNzYtMy43Ng0KCWMwLTIuMDgsMS42OC0zLjc2LDMuNzYtMy43NkMxMC4zMiw1LjA1LDEyLDYuNzMsMTIsOC44MXogTTExLjIzLDEyLjcyYy0wLjgzLDAuNjQtMS44NywxLjAxLTIuOTksMS4wMWMtMi43MiwwLTQuOTItMi4yLTQuOTItNC45Mg0KCWMwLTIuNzIsMi4yLTQuOTIsNC45Mi00LjkyYzIuNzIsMCw0LjkyLDIuMiw0LjkyLDQuOTJjMCwxLjEzLTAuMzgsMi4xNi0xLjAxLDIuOTlsMy45NCwzLjkzYzAuMjUsMC4yNSwwLjI1LDAuNjYsMCwwLjkyDQoJYy0wLjI1LDAuMjUtMC42NiwwLjI1LTAuOTIsMEwxMS4yMywxMi43MnoiLz4NCjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBmaWxsPSIjQzBDMEJGIiBkPSJNMTIsMjguODFjMCwyLjA4LTEuNjgsMy43Ni0zLjc2LDMuNzZjLTIuMDgsMC0zLjc2LTEuNjgtMy43Ni0zLjc2DQoJYzAtMi4wOCwxLjY4LTMuNzYsMy43Ni0zLjc2QzEwLjMyLDI1LjA1LDEyLDI2LjczLDEyLDI4LjgxeiBNMTEuMjMsMzIuNzJjLTAuODMsMC42NC0xLjg3LDEuMDEtMi45OSwxLjAxDQoJYy0yLjcyLDAtNC45Mi0yLjItNC45Mi00LjkyYzAtMi43MiwyLjItNC45Miw0LjkyLTQuOTJjMi43MiwwLDQuOTIsMi4yLDQuOTIsNC45MmMwLDEuMTMtMC4zOCwyLjE2LTEuMDEsMi45OWwzLjk0LDMuOTMNCgljMC4yNSwwLjI1LDAuMjUsMC42NiwwLDAuOTJjLTAuMjUsMC4yNS0wLjY2LDAuMjUtMC45MiwwTDExLjIzLDMyLjcyeiIvPg0KPC9zdmc+';
 
 function IcnSearch() {
@@ -20282,7 +20953,7 @@ function IcnSearch() {
     className: cx(styles$i.icnSearch)
   });
 }
-var styles$i = /*#__PURE__*/stylesheet.create( /*#__PURE__*/_extends({
+var styles$i = /*#__PURE__*/stylesheet.create(/*#__PURE__*/_extends({
   icnSearch: {
     '.': 'epr-icn-search',
     content: '',
@@ -20312,9 +20983,6 @@ function SearchContainer() {
   }, createElement(Search, null), isSkinToneInSearch ? createElement(SkinTonePicker, null) : null);
 }
 function Search() {
-  var _useState = useState(0),
-    inc = _useState[0],
-    setInc = _useState[1];
   var closeAllOpenToggles = useCloseAllOpenToggles();
   var SearchInputRef = useSearchInputRef();
   var placeholder = useSearchPlaceHolderConfig();
@@ -20327,9 +20995,7 @@ function Search() {
   var value = input == null ? void 0 : input.value;
   return createElement(Relative, {
     className: cx(styles$j.searchContainer)
-  }, createElement(CssSearch, {
-    value: value
-  }), createElement("input", {
+  }, createElement("input", {
     // eslint-disable-next-line jsx-a11y/no-autofocus
     autoFocus: autoFocus,
     "aria-label": 'Type to search for an emoji',
@@ -20339,11 +21005,8 @@ function Search() {
     "aria-controls": "epr-search-id",
     placeholder: placeholder,
     onChange: function onChange(event) {
-      setInc(inc + 1);
-      setTimeout(function () {
-        var _event$target$value, _event$target;
-        _onChange((_event$target$value = event == null || (_event$target = event.target) == null ? void 0 : _event$target.value) != null ? _event$target$value : value);
-      });
+      var _event$target$value, _event$target;
+      _onChange((_event$target$value = event == null || (_event$target = event.target) == null ? void 0 : _event$target.value) != null ? _event$target$value : value);
     },
     ref: SearchInputRef
   }), searchTerm ? createElement("div", {
@@ -20354,7 +21017,7 @@ function Search() {
     "aria-atomic": "true"
   }, statusSearchResults) : null, createElement(IcnSearch, null), createElement(BtnClearSearch, null));
 }
-var styles$j = /*#__PURE__*/stylesheet.create( /*#__PURE__*/_extends({
+var styles$j = /*#__PURE__*/stylesheet.create(/*#__PURE__*/_extends({
   overlay: {
     padding: 'var(--epr-header-padding)',
     zIndex: 'var(--epr-header-overlay-z-index)'
@@ -20382,11 +21045,11 @@ var styles$j = /*#__PURE__*/stylesheet.create( /*#__PURE__*/_extends({
     padding: 'var(--epr-search-input-padding)',
     height: 'var(--epr-search-input-height)',
     backgroundColor: 'var(--epr-search-input-bg-color)',
-    border: '1px solid var(--epr-search-input-bg-color)',
+    border: '1px solid var(--epr-search-border-color)',
     width: '100%',
     ':focus': {
       backgroundColor: 'var(--epr-search-input-bg-color-active)',
-      border: '1px solid var(--epr-search-border-color)'
+      border: '1px solid var(--epr-search-border-color-active)'
     },
     '::placeholder': {
       color: 'var(--epr-search-input-placeholder-color)'
@@ -20478,7 +21141,6 @@ function ExpandedPickerContent(_ref) {
 var EmojiPickerReact = /*#__PURE__*/memo(EmojiPicker, compareConfig);
 
 var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
-  _inheritsLoose(ErrorBoundary, _React$Component);
   function ErrorBoundary(props) {
     var _this;
     _this = _React$Component.call(this, props) || this;
@@ -20487,6 +21149,7 @@ var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
     };
     return _this;
   }
+  _inheritsLoose(ErrorBoundary, _React$Component);
   ErrorBoundary.getDerivedStateFromError = function getDerivedStateFromError() {
     return {
       hasError: true
@@ -20533,7 +21196,8 @@ function ExportedEmoji(_ref) {
 function EmojiPicker$1(props) {
   var MutableConfigRef = useDefineMutableConfig({
     onEmojiClick: props.onEmojiClick,
-    onReactionClick: props.onReactionClick
+    onReactionClick: props.onReactionClick,
+    onSkinToneChange: props.onSkinToneChange
   });
   return createElement(ErrorBoundary, null, createElement(MutableConfigContext.Provider, {
     value: MutableConfigRef
@@ -20541,5 +21205,5 @@ function EmojiPicker$1(props) {
 }
 
 export default EmojiPicker$1;
-export { Categories, ExportedEmoji as Emoji, EmojiStyle, SkinTonePickerLocation, SkinTones, SuggestionMode, Theme };
+export { Categories, ExportedEmoji as Emoji, EmojiStyle, SkinTonePickerLocation, SkinTones, SuggestionMode, Theme, emojiByUnified };
 //# sourceMappingURL=emoji-picker-react.esm.js.map

@@ -9,6 +9,7 @@ declare type ClickableEmojiButtonProps = Readonly<{
     unified: string;
     noBackground?: boolean;
     className?: string;
+    style?: React.CSSProperties;
 }>;
-export declare function ClickableEmojiButton({ emojiNames, unified, hidden, hiddenOnSearch, showVariations, hasVariations, children, className, noBackground }: ClickableEmojiButtonProps): React.JSX.Element;
+export declare function ClickableEmojiButton({ emojiNames, unified, hidden, hiddenOnSearch, showVariations, hasVariations, children, className, noBackground, style, }: ClickableEmojiButtonProps): React.JSX.Element;
 export {};

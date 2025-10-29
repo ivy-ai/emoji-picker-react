@@ -5,6 +5,7 @@ declare type Props = Readonly<{
     children?: React.ReactNode;
     hidden?: boolean;
     hiddenOnSearch?: boolean;
+    height?: number;
 }>;
-export declare function EmojiCategory({ categoryConfig, children, hidden, hiddenOnSearch, }: Props): React.JSX.Element;
+export declare function EmojiCategory({ categoryConfig, children, hidden, hiddenOnSearch, height, }: Props): React.JSX.Element;
 export {};

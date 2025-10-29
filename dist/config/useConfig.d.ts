@@ -17,6 +17,7 @@ export declare function useCategoriesConfig(): CategoriesConfig;
 export declare function useCustomEmojisConfig(): CustomEmoji[];
 export declare function useOpenConfig(): boolean;
 export declare function useOnEmojiClickConfig(mouseEventSource: MOUSE_EVENT_SOURCE): (emoji: EmojiClickData, event: MouseEvent) => void;
+export declare function useOnSkinToneChangeConfig(): (skinTone: SkinTones) => void;
 export declare function usePreviewConfig(): PreviewConfig;
 export declare function useThemeConfig(): Theme;
 export declare function useSuggestedEmojisModeConfig(): SuggestionMode;

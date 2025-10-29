@@ -36,6 +36,7 @@ export declare type PickerConfigInternal = {
     reactions: string[];
     open: boolean;
     allowExpandReactions: boolean;
+    hiddenEmojis: string[];
 };
 export declare type PreviewConfig = {
     defaultEmoji: string;
@@ -46,8 +47,13 @@ declare type ConfigExternal = {
     previewConfig: Partial<PreviewConfig>;
     onEmojiClick: MouseDownEvent;
     onReactionClick: MouseDownEvent;
+    onSkinToneChange: OnSkinToneChange;
 } & Omit<PickerConfigInternal, 'previewConfig' | 'unicodeToHide'>;
 export declare type PickerConfig = Partial<ConfigExternal>;
 export declare type PickerDimensions = string | number;
-export declare type MouseDownEvent = (emoji: EmojiClickData, event: MouseEvent) => void;
+export declare type MouseDownEvent = (emoji: EmojiClickData, event: MouseEvent, api?: OnEmojiClickApi) => void;
+export declare type OnSkinToneChange = (emoji: SkinTones) => void;
+declare type OnEmojiClickApi = {
+    collapseToReactions: () => void;
+};
 export {};
