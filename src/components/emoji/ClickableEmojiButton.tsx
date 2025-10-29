@@ -20,6 +20,7 @@ type ClickableEmojiButtonProps = Readonly<{
   unified: string;
   noBackground?: boolean;
   className?: string;
+  style?: React.CSSProperties;
 }>;
 
 export function ClickableEmojiButton({
@@ -31,16 +32,22 @@ export function ClickableEmojiButton({
   hasVariations,
   children,
   className,
-  noBackground = false
+  noBackground = false,
+  style,
 }: ClickableEmojiButtonProps) {
-  let ariaLabel = emojiNames.some((name) => name.match('flag-'))
-    ? emojiNames[emojiNames.length - 1]
-    : emojiNames[0];
-  const skinToneName = activeVariationNameFromUnified(
-    unified,
-    !showVariations && hasVariations
-  );
-  if (skinToneName) ariaLabel = `${ariaLabel} ${skinToneName} skin tone`;
+  function getAriaLabel() {
+    let ariaLabel = emojiNames.some((name) => name.match('flag-'))
+      ? emojiNames[emojiNames.length - 1]
+      : emojiNames[0];
+
+    const skinToneName = activeVariationNameFromUnified(
+      unified,
+      !showVariations && hasVariations
+    );
+    if (skinToneName) ariaLabel = `${ariaLabel} ${skinToneName} skin tone`;
+
+    return ariaLabel;
+  }
 
   return (
     <Button
@@ -56,8 +63,9 @@ export function ClickableEmojiButton({
         className
       )}
       data-unified={unified}
-      aria-label={ariaLabel}
+      aria-label={getAriaLabel()}
       data-full-name={emojiNames}
+      style={style}
     >
       {children}
     </Button>
