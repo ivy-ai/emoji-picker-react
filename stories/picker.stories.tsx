@@ -63,6 +63,10 @@ export const SearchDisabled = (args: Props) => (
   <Template {...args} searchDisabled />
 );
 
+export const HiddenEmojis = (args: Props) => (
+  <Template {...args} hiddenEmojis={['1f604', '1f60d', '1f607']} />
+);
+
 export const SearchDisabledDark = (args: Props) => (
   <TemplateDark {...args} searchDisabled theme={Theme.DARK} />
 );
@@ -125,10 +129,20 @@ export const LazyLoaded = (args: Props) => (
   <Template {...args} lazyLoadEmojis={true} />
 );
 
+export const SkinToneChange = (args: Props) => (
+  <Template
+    {...args}
+    onSkinToneChange={skinTone => {
+      console.log('New skin tone set:', skinTone);
+    }}
+  />
+);
+
 export const ReactionsMenu = (args: Props) => (
   <Template
     {...args}
     reactionsDefaultOpen={true}
+    emojiStyle={EmojiStyle.NATIVE}
     onReactionClick={data => {
       console.log('Clicked reaction!', data);
     }}
@@ -140,6 +154,7 @@ export const ReactionsMenuNoExpand = (args: Props) => (
     {...args}
     reactionsDefaultOpen={true}
     allowExpandReactions={false}
+    emojiStyle={EmojiStyle.NATIVE}
     onReactionClick={data => {
       console.log('Clicked reaction!', data);
     }}
@@ -174,11 +189,21 @@ export const CustomReactions = (args: Props) => (
 );
 
 export const ReactionsMenuDark = (args: Props) => (
-  <TemplateDark {...args} reactionsDefaultOpen={true} theme={Theme.DARK} />
+  <TemplateDark
+    {...args}
+    reactionsDefaultOpen={true}
+    emojiStyle={EmojiStyle.NATIVE}
+    theme={Theme.DARK}
+  />
 );
 
 export const ReactionsMenuAuto = (args: Props) => (
-  <Template {...args} reactionsDefaultOpen={true} theme={Theme.AUTO} />
+  <Template
+    {...args}
+    reactionsDefaultOpen={true}
+    emojiStyle={EmojiStyle.NATIVE}
+    theme={Theme.AUTO}
+  />
 );
 
 export const EmojiVersion_0_6 = (args: Props) => (
@@ -274,6 +299,16 @@ export const CustomUnifiedEmojiImage = () => {
 
 export const HideEmojisByUnicode = (args: Props) => (
   <Template {...args} emojiStyle={EmojiStyle.NATIVE} />
+);
+
+export const CollapseToReactions = (args: Props) => (
+  <EmojiPicker
+    onEmojiClick={(emoji, event, { collapseToReactions }) => {
+      collapseToReactions();
+      console.log(emoji, event);
+    }}
+    emojiStyle={EmojiStyle.NATIVE}
+  />
 );
 
 function TemplateDark(args) {

@@ -43,7 +43,7 @@ export const commonInteractionStyles = stylesheet.create({
         ...hidden
       }
     },
-    ':has(input(:placeholder-shown))': {
+    ':has(input:placeholder-shown)': {
       visibleOnSearchOnly: hidden
     }
   },
@@ -65,7 +65,6 @@ export const commonInteractionStyles = stylesheet.create({
         opacity: '1',
         backgroundPositionY: 'var(--epr-category-navigation-button-size)'
       },
-      // @ts-ignore
       '&.epr-active': {
         opacity: '1',
         backgroundPositionY: 'var(--epr-category-navigation-button-size)'

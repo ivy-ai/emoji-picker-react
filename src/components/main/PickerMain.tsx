@@ -97,6 +97,10 @@ const DarkTheme = {
     'var(--epr-dark-category-icon-active-color)',
   '--epr-skin-tone-picker-menu-color':
     'var(--epr-dark-skin-tone-picker-menu-color)',
+  '--epr-skin-tone-outer-border-color':
+    'var(--epr-dark-skin-tone-outer-border-color)',
+  '--epr-skin-tone-inner-border-color':
+    'var(--epr-dark-skin-tone-inner-border-color)',
 };
 
 const styles = stylesheet.create({
@@ -111,8 +115,7 @@ const styles = stylesheet.create({
     borderColor: 'var(--epr-picker-border-color)',
     backgroundColor: 'var(--epr-bg-color)',
     overflow: 'hidden',
-    transition: 'all 0.3s ease-in-out, background-color 0.1s ease-in-out',
-    // @ts-expect-error - need to work on this
+    transition: 'height 0.3s ease-in-out, background-color 0.1s ease-in-out',
     '*': {
       boxSizing: 'border-box',
       fontFamily: 'sans-serif',
@@ -121,8 +124,8 @@ const styles = stylesheet.create({
   baseVariables: {
     '--': {
       '--epr-highlight-color': '#007aeb',
-      '--epr-hover-bg-color': '#f1f8ff',
-      '--epr-hover-bg-color-reduced-opacity': '#f1f8ff80',
+      '--epr-hover-bg-color': '#e5f0fa',
+      '--epr-hover-bg-color-reduced-opacity': '#e5f0fa80',
       '--epr-focus-bg-color': '#e0f0ff',
       '--epr-text-color': '#858585',
       '--epr-search-input-bg-color': '#f6f6f6',
@@ -131,13 +134,14 @@ const styles = stylesheet.create({
       '--epr-reactions-bg-color': '#ffffff90',
       '--epr-category-icon-active-color': '#6aa8de',
       '--epr-skin-tone-picker-menu-color': '#ffffff95',
+      '--epr-skin-tone-outer-border-color': '#555555',
+      '--epr-skin-tone-inner-border-color': 'var(--epr-bg-color)',
 
       '--epr-horizontal-padding': '10px',
 
       '--epr-picker-border-radius': '8px',
 
       /* Header */
-      '--epr-search-border-color': 'var(--epr-highlight-color)',
       '--epr-header-padding': '15px var(--epr-horizontal-padding)',
 
       /* Skin Tone Picker */
@@ -153,6 +157,8 @@ const styles = stylesheet.create({
       '--epr-search-input-text-color': 'var(--epr-text-color)',
       '--epr-search-input-placeholder-color': 'var(--epr-text-color)',
       '--epr-search-bar-inner-padding': 'var(--epr-horizontal-padding)',
+      '--epr-search-border-color': 'var(--epr-search-input-bg-color)',
+      '--epr-search-border-color-active': 'var(--epr-highlight-color)',
 
       /*  Category Navigation */
       '--epr-category-navigation-button-size': '30px',
@@ -210,6 +216,9 @@ const styles = stylesheet.create({
       '--epr-dark-emoji-variation-indicator-color': '#444',
       '--epr-dark-category-icon-active-color': '#3271b7',
       '--epr-dark-skin-tone-picker-menu-color': '#22222295',
+      '--epr-dark-skin-tone-outer-border-color':
+        'var(--epr-dark-picker-border-color)',
+      '--epr-dark-skin-tone-inner-border-color': '#00000000',
     },
   },
   autoThemeDark: {
@@ -227,6 +236,7 @@ const styles = stylesheet.create({
     height: '50px',
     display: 'inline-flex',
     backgroundColor: 'var(--epr-reactions-bg-color)',
+    // @ts-ignore - backdropFilter is not recognized.
     backdropFilter: 'blur(8px)',
     '--': {
       '--epr-picker-border-radius': '50px',

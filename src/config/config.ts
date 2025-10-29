@@ -4,7 +4,7 @@ import { DEFAULT_REACTIONS } from '../components/Reactions/DEFAULT_REACTIONS';
 import { GetEmojiUrl } from '../components/emoji/BaseEmojiProps';
 import {
   setCustomEmojis,
-  emojiUrlByUnified
+  emojiUrlByUnified,
 } from '../dataUtils/emojiSelectors';
 import {
   EmojiClickData,
@@ -12,13 +12,13 @@ import {
   SkinTonePickerLocation,
   SkinTones,
   SuggestionMode,
-  Theme
+  Theme,
 } from '../types/exposedTypes';
 
 import {
   CategoriesConfig,
   baseCategoriesConfig,
-  mergeCategoriesConfig
+  mergeCategoriesConfig,
 } from './categoryConfig';
 import { CustomEmoji } from './customEmojiConfig';
 
@@ -45,7 +45,11 @@ export function mergeConfig(
   const config = Object.assign(base, userConfig);
 
   const categories = mergeCategoriesConfig(userConfig.categories, {
-    suggestionMode: config.suggestedEmojisMode
+    suggestionMode: config.suggestedEmojisMode,
+  });
+
+  config.hiddenEmojis.forEach((emoji) => {
+    config.unicodeToHide.add(emoji);
   });
 
   setCustomEmojis(config.customEmojis ?? []);
@@ -58,7 +62,7 @@ export function mergeConfig(
     ...config,
     categories,
     previewConfig,
-    skinTonePickerLocation
+    skinTonePickerLocation,
   };
 }
 
@@ -75,7 +79,7 @@ export function basePickerConfig(): PickerConfigInternal {
     height: 450,
     lazyLoadEmojis: false,
     previewConfig: {
-      ...basePreviewConfig
+      ...basePreviewConfig,
     },
     searchDisabled: false,
     searchPlaceHolder: DEFAULT_SEARCH_PLACEHOLDER,
@@ -90,7 +94,8 @@ export function basePickerConfig(): PickerConfigInternal {
     reactionsDefaultOpen: false,
     reactions: DEFAULT_REACTIONS,
     open: true,
-    allowExpandReactions: true
+    allowExpandReactions: true,
+    hiddenEmojis: [],
   };
 }
 
@@ -120,6 +125,7 @@ export type PickerConfigInternal = {
   reactions: string[];
   open: boolean;
   allowExpandReactions: boolean;
+  hiddenEmojis: string[];
 };
 
 export type PreviewConfig = {
@@ -131,17 +137,27 @@ export type PreviewConfig = {
 const basePreviewConfig: PreviewConfig = {
   defaultEmoji: '1f60a',
   defaultCaption: "What's your mood?",
-  showPreview: true
+  showPreview: true,
 };
 
 type ConfigExternal = {
   previewConfig: Partial<PreviewConfig>;
   onEmojiClick: MouseDownEvent;
   onReactionClick: MouseDownEvent;
+  onSkinToneChange: OnSkinToneChange;
 } & Omit<PickerConfigInternal, 'previewConfig' | 'unicodeToHide'>;
 
 export type PickerConfig = Partial<ConfigExternal>;
 
 export type PickerDimensions = string | number;
 
-export type MouseDownEvent = (emoji: EmojiClickData, event: MouseEvent) => void;
+export type MouseDownEvent = (
+  emoji: EmojiClickData,
+  event: MouseEvent,
+  api?: OnEmojiClickApi
+) => void;
+export type OnSkinToneChange = (emoji: SkinTones) => void;
+
+type OnEmojiClickApi = {
+  collapseToReactions: () => void;
+};

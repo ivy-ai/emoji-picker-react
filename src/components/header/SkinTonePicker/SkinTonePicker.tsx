@@ -4,7 +4,10 @@ import * as React from 'react';
 
 import { ClassNames } from '../../../DomUtils/classNames';
 import { stylesheet } from '../../../Stylesheet/stylesheet';
-import { useSkinTonesDisabledConfig } from '../../../config/useConfig';
+import {
+  useOnSkinToneChangeConfig,
+  useSkinTonesDisabledConfig
+} from '../../../config/useConfig';
 import skinToneVariations from '../../../data/skinToneVariations';
 import { useCloseAllOpenToggles } from '../../../hooks/useCloseAllOpenToggles';
 import { useFocusSearchInput } from '../../../hooks/useFocus';
@@ -41,6 +44,7 @@ export function SkinTonePicker({
   const isDisabled = useSkinTonesDisabledConfig();
   const [isOpen, setIsOpen] = useSkinToneFanOpenState();
   const [activeSkinTone, setActiveSkinTone] = useActiveSkinToneState();
+  const onSkinToneChange = useOnSkinToneChangeConfig();
   const closeAllOpenToggles = useCloseAllOpenToggles();
   const focusSearchInput = useFocusSearchInput();
 
@@ -89,6 +93,7 @@ export function SkinTonePicker({
               onClick={() => {
                 if (isOpen) {
                   setActiveSkinTone(skinToneVariation);
+                  onSkinToneChange(skinToneVariation);
                   focusSearchInput();
                 } else {
                   setIsOpen(true);
@@ -131,18 +136,10 @@ const styles = stylesheet.create({
     boxShadow: '0px 0 7px var(--epr-picker-border-color)'
   },
   open: {
-    // @ts-ignore
+    // @ts-ignore - backdropFilter is not recognized.
     backdropFilter: 'blur(5px)',
     background: 'var(--epr-skin-tone-picker-menu-color)',
-    // @ts-ignore
-    '.epr-active:after': {
-      content: '',
-      position: 'absolute',
-      top: '-2px',
-      left: '-2px',
-      right: '-2px',
-      bottom: '-2px',
-      borderRadius: '5px',
+    '.epr-active': {
       border: '1px solid var(--epr-active-skin-tone-indicator-border-color)'
     }
   },
@@ -150,19 +147,6 @@ const styles = stylesheet.create({
     '.': 'epr-skin-tone-select',
     position: 'relative',
     width: 'var(--epr-skin-tone-size)',
-    height: 'var(--epr-skin-tone-size)',
-    // @ts-ignore
-    '> button': {
-      width: 'var(--epr-skin-tone-size)',
-      display: 'block',
-      cursor: 'pointer',
-      borderRadius: '4px',
-      height: 'var(--epr-skin-tone-size)',
-      position: 'absolute',
-      right: '0',
-      transition: 'transform 0.3s ease-in-out, opacity 0.35s ease-in-out',
-      zIndex: '0',
-      boxShadow: '0 0 0 0px var(--epr-active-skin-hover-color)'
-    }
+    height: 'var(--epr-skin-tone-size)'
   }
 });
