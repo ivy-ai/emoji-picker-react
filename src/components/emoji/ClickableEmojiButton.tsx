@@ -33,8 +33,8 @@ export function ClickableEmojiButton({
   className,
   noBackground = false
 }: ClickableEmojiButtonProps) {
-  let ariaLabel = emojiNames[0].match('flag-')
-    ? emojiNames[1] ?? emojiNames[0]
+  let ariaLabel = emojiNames.some((name) => name.match('flag-'))
+    ? emojiNames[emojiNames.length - 1]
     : emojiNames[0];
   const skinToneName = activeVariationNameFromUnified(
     unified,
